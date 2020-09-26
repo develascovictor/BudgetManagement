@@ -36,9 +36,9 @@ namespace BudgetManagement.Client
             // 
             // gridBudgets
             // 
-            this.gridBudgets.Location = new System.Drawing.Point(28, 56);
+            this.gridBudgets.Location = new System.Drawing.Point(12, 109);
             this.gridBudgets.Name = "gridBudgets";
-            this.gridBudgets.Size = new System.Drawing.Size(733, 329);
+            this.gridBudgets.Size = new System.Drawing.Size(847, 329);
             this.gridBudgets.TabIndex = 0;
             this.gridBudgets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridBudgets_CellContentClick);
             // 
@@ -46,10 +46,11 @@ namespace BudgetManagement.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(871, 450);
             this.Controls.Add(this.gridBudgets);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridBudgets)).EndInit();
             this.ResumeLayout(false);
 
