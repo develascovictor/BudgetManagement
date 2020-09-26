@@ -37,11 +37,11 @@
     <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
       <HintPath>..\packages\YUICompressor.NET.1.6.0.2\lib\net35\EcmaScript.NET.modified.dll</HintPath>
     </Reference>
-    <Reference Include="Expressions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expressions.1.0.0\lib\netstandard2.0\Expressions.dll</HintPath>
+    <Reference Include="Expressions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expressions.1.0.1\lib\netstandard2.0\Expressions.dll</HintPath>
     </Reference>
-    <Reference Include="Filtering, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Filtering.1.0.0\lib\netstandard2.0\Filtering.dll</HintPath>
+    <Reference Include="Filtering, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Filtering.1.0.1\lib\netstandard2.0\Filtering.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.9.2.0\lib\net461\FluentValidation.dll</HintPath>

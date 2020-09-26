@@ -21,7 +21,6 @@ namespace BudgetManagement.Client
 
             _budgetId = budgetId;
             _transactionModule = new TransactionModule(new TransactionModuleImpl(new TransactionService(new UnitOfWork(new BudgetManagementEntities()))));
-            Reload();
         }
 
         private async void Reload()
@@ -42,7 +41,7 @@ namespace BudgetManagement.Client
 
         private void TransactionsByBudgetForm_Load(object sender, EventArgs e)
         {
-
+            Reload();
         }
     }
 }

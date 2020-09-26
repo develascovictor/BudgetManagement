@@ -41,11 +41,11 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Expressions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expressions.1.0.0\lib\netstandard2.0\Expressions.dll</HintPath>
+    <Reference Include="Expressions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expressions.1.0.1\lib\netstandard2.0\Expressions.dll</HintPath>
     </Reference>
-    <Reference Include="Filtering, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Filtering.1.0.0\lib\netstandard2.0\Filtering.dll</HintPath>
+    <Reference Include="Filtering, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Filtering.1.0.1\lib\netstandard2.0\Filtering.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.9.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.9\lib\net45\log4net.dll</HintPath>
