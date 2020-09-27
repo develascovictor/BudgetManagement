@@ -43,5 +43,11 @@ namespace BudgetManagement.Client
         {
             Reload();
         }
+
+        private void btnAddTransaction_Click(object sender, EventArgs e)
+        {
+            var at = new AddTransactionForm(_budgetId);
+            at.Show();
+        }
     }
 }

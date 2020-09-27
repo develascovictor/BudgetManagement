@@ -4,6 +4,7 @@ using BudgetManagement.Persistence.SqlServer;
 using BudgetManagement.Service.Api.Modules.Budget;
 using BudgetManagement.Service.Api.Modules.Budget.Interfaces;
 using BudgetManagement.Service.Api.Modules.Budget.Views;
+using System;
 using System.Net;
 using System.Windows.Forms;
 
@@ -43,7 +44,7 @@ namespace BudgetManagement.Client
             tr.Show();
         }
 
-        private void MainForm_Load(object sender, System.EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             Reload();
         }
