@@ -23,6 +23,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
         {
             new CreateExpenseRequestProfile(),
             new CreateIncomeRequestProfile(),
+            new CreateTransactionRequestProfile(),
             new ExpenseDtoProfile(),
             new IncomeDtoProfile(),
             new TransactionDtoProfile()
@@ -59,6 +60,14 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             var pageDto = await SearchAsync((pageOptions) => _transactionService.SearchTransactionsByBudgetId(request.BudgetId, request.Filter, request.Sort, pageOptions), paginationRequest, caller.Method, cancellationToken);
 
             return pageDto;
+        }
+
+        public async Task<TransactionDto> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await RunRequestAndDispatchEventAsync<CreateTransactionRequest, TransactionCreateDefinition>(x => _transactionService.CreateTransaction(x), request, caller.Method, cancellationToken);
+
+            return dto;
         }
 
         public async Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken)

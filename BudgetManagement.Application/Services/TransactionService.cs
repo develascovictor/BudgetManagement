@@ -33,6 +33,67 @@ namespace BudgetManagement.Application.Services
             return new DataPage<Transaction>(domains, pageOptions, total);
         }
 
+        public Transaction CreateTransaction(TransactionCreateDefinition transactionCreationDefinition)
+        {
+            var budget = _unitOfWork.BudgetRepository.GetById(transactionCreationDefinition.BudgetId);
+
+            if (budget == null)
+            {
+                throw new BudgetNotFoundException(transactionCreationDefinition.BudgetId);
+            }
+
+            if (transactionCreationDefinition.TransactionTypeId == null)
+            {
+                if (budget.HasTypes)
+                {
+                    //TODO:
+                }
+            }
+
+            else
+            {
+                var transactionTypeId = transactionCreationDefinition.TransactionTypeId ?? 0;
+                var transactionType = _unitOfWork.TransactionTypeRepository.GetById(transactionTypeId);
+
+                if (transactionType == null)
+                {
+                    throw new TransactionTypeNotFoundException(transactionTypeId);
+                }
+            }
+
+            var expenses = transactionCreationDefinition.Expenses.Where(x => x != null).Select(x => new Expense(0, 0, x.Date, x.Amount, x.Rate, DateTime.Now, DateTime.Now)).ToList();
+            var incomes = transactionCreationDefinition.Incomes.Where(x => x != null).Select(x => new Income(0, 0, null, x.Date, x.Amount, x.Rate, DateTime.Now, DateTime.Now)).ToList();
+
+            if (expenses.Any(x => x.Date.Date < transactionCreationDefinition.Date.Date))
+            {
+                //TODO:
+            }
+
+            if (incomes.Any(x => x.Date.Date < transactionCreationDefinition.Date.Date))
+            {
+                //TODO:
+            }
+
+            var domain = new Transaction
+            (
+                0,
+                transactionCreationDefinition.BudgetId,
+                transactionCreationDefinition.TransactionTypeId,
+                transactionCreationDefinition.Date,
+                transactionCreationDefinition.Description,
+                transactionCreationDefinition.Notes,
+                DateTime.Now,
+                DateTime.Now,
+                expenses,
+                incomes
+            );
+            domain = _unitOfWork.TransactionRepository.Create(domain);
+
+            _unitOfWork.SaveChanges();
+
+            return domain;
+        }
+
         public Expense CreateExpense(ExpenseCreateDefinition expenseCreateDefinition)
         {
             var transaction = _unitOfWork.TransactionRepository.GetById(expenseCreateDefinition.TransactionId);

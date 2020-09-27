@@ -50,8 +50,10 @@
     <Compile Include="Entities\TransactionType.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\Budget.cs" />
+    <Compile Include="Exceptions\TransactionTypeNotFoundException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\DomainTypeMismatchException.cs" />
+    <Compile Include="Exceptions\BudgetNotFoundException.cs" />
     <Compile Include="Exceptions\TransactionNotFoundException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

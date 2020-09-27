@@ -7,5 +7,6 @@ namespace BudgetManagement.Domain.Repositories
     {
         Transaction GetById(int id);
         IEnumerable<Transaction> SearchByBudgetId(int budgetId, string filterOptions, string sortOptions, int index, int limit, out long total);
+        Transaction Create(Transaction domain);
     }
 }

@@ -8,6 +8,7 @@ namespace BudgetManagement.Application.Interfaces
     {
         Transaction GetTransactionById(int id);
         DataPage<Transaction> SearchTransactionsByBudgetId(int budgetId, string filterOptions, string sortOptions, PageOptions pageOptions);
+        Transaction CreateTransaction(TransactionCreateDefinition transactionCreationDefinition);
         Expense CreateExpense(ExpenseCreateDefinition expenseCreateDefinition);
         Income CreateIncome(IncomeCreateDefinition incomeCreateDefinition);
     }

@@ -12,8 +12,6 @@ namespace BudgetManagement.Persistence.SqlServer.Mapping.Profiles
 
             CreateMap<Domain.Entities.Transaction, Transaction>()
                 .ForMember(dest => dest.Budget, opt => opt.Ignore())
-                .ForMember(dest => dest.Expenses, opt => opt.Ignore())
-                .ForMember(dest => dest.Incomes, opt => opt.Ignore())
                 .ForMember(dest => dest.TransactionType, opt => opt.Ignore());
         }
     }
