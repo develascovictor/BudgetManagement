@@ -1,12 +1,8 @@
 .vs/
 *.user
 packages/
-BudgetManagement/obj/*
-BudgetManagement.Unit.Tests/obj/*
 */bin/*
+*/obj/*
 BudgetManagement.sln
 BudgetManagement.v12.suo
-BudgetManagement.Api/obj/Debug/
-BudgetManagement.Application/obj/Debug/
-BudgetManagement.Service/obj/Debug/
-BudgetManagement.Shared/obj/Debug/
+
