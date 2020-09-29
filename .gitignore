@@ -1,8 +1,7 @@
 .vs/
 *.user
 packages/
-*/bin/*
-*/obj/*
+*/bin/
+*/obj/
 BudgetManagement.sln
 BudgetManagement.v12.suo
-

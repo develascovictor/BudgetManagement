@@ -49,5 +49,25 @@ namespace BudgetManagement.Domain.Entities
         {
             return null;
         }
+
+        public Transaction UpdateTransactionTypeId(int? transactionTypeId)
+        {
+            return UpdateProperty<Transaction>(transactionTypeId, TransactionTypeId, x => TransactionTypeId = x);
+        }
+
+        public Transaction UpdateDate(DateTime? date)
+        {
+            return UpdateProperty<Transaction>(date, Date, x => Date = x);
+        }
+
+        public Transaction UpdateDescription(string description)
+        {
+            return UpdateProperty<Transaction>(description, Description, x => Description = x);
+        }
+
+        public Transaction UpdateNotes(string notes)
+        {
+            return UpdateProperty<Transaction>(notes, Notes, x => Notes = x);
+        }
     }
 }

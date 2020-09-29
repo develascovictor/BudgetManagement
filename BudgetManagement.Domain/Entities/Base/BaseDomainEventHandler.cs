@@ -131,6 +131,32 @@ namespace BudgetManagement.Domain.Entities.Base
             return UpdateProperty<T, int>(newValue, propertyValue, setProperty, postSetProperty);
         }
 
+        protected T UpdateProperty<T>(int? newValue, int? propertyValue, Action<int?> setProperty, Action postSetProperty = null, bool allowZero = false) where T : BaseDomainEventHandler<TId>
+        {
+            return Verify<T>(() =>
+            {
+                if (!newValue.HasValue)
+                {
+                    return false;
+                }
+
+                if (propertyValue == 0 && !allowZero)
+                {
+                    propertyValue = null;
+                }
+
+                if (propertyValue.Equals(newValue))
+                {
+                    return false;
+                }
+
+                setProperty(newValue);
+                postSetProperty?.Invoke();
+
+                return true;
+            });
+        }
+
         protected T UpdateProperty<T>(long? newValue, long propertyValue, Action<long> setProperty, Action postSetProperty = null) where T : BaseDomainEventHandler<TId>
         {
             return UpdateProperty<T, long>(newValue, propertyValue, setProperty, postSetProperty);
@@ -144,6 +170,11 @@ namespace BudgetManagement.Domain.Entities.Base
         protected T UpdateProperty<T>(bool? newValue, bool propertyValue, Action<bool> setProperty, Action postSetProperty = null) where T : BaseDomainEventHandler<TId>
         {
             return UpdateProperty<T, bool>(newValue, propertyValue, setProperty, postSetProperty);
+        }
+
+        protected T UpdateProperty<T>(DateTime? newValue, DateTime propertyValue, Action<DateTime> setProperty, Action postSetProperty = null) where T : BaseDomainEventHandler<TId>
+        {
+            return UpdateProperty<T, DateTime>(newValue, propertyValue, setProperty, postSetProperty);
         }
 
         private T UpdateProperty<T, TType>(TType? newValue, TType propertyValue, Action<TType> setProperty, Action postSetProperty = null)

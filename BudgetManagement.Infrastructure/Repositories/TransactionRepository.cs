@@ -28,6 +28,15 @@ namespace BudgetManagement.Infrastructure.Repositories
 
         protected override Transaction ToPersistence(Domain.Entities.Transaction domain) => EntityMapper.ToPersistence(domain);
 
+        protected override void UpdateFields(Transaction entity, Domain.Entities.Transaction domain)
+        {
+            entity.TransactionTypeId = domain.TransactionTypeId;
+            entity.Date = domain.Date;
+            entity.Description = domain.Description;
+            entity.Notes = domain.Notes;
+            entity.UpdatedOn = domain.UpdatedOn;
+        }
+
         public IEnumerable<Domain.Entities.Transaction> SearchByBudgetId(int budgetId, string filterOptions, string sortOptions, int index, int limit, out long total)
         {
             var expression = ExpressionExtensions.CreateEqualExpression<Transaction, int>(nameof(Transaction.BudgetId), budgetId, "tra");

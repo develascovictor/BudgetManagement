@@ -191,6 +191,60 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             }
         }
 
+        public async Task<CommandResult<TransactionDto>> UpdateTransactionAsync(UpdateTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<TransactionDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            var validator = new UpdateTransactionRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.UpdateTransactionAsync(request, cancellationToken);
+
+                if (dto == null)
+                {
+                    return CommandResult<TransactionDto>.NotFound();
+                }
+
+                if (dto.Errors.Any())
+                {
+                    return ExceptionExtensions.GetBadResponse<TransactionDto>(dto.Errors);
+                }
+
+                return CommandResult<TransactionDto>.Ok(dto);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<TransactionDto>(parameters);
+            }
+        }
+
         public async Task<CommandResult<ExpenseDto>> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken)
         {
             var parameters = new { request, cancellationToken };

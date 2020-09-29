@@ -38,6 +38,11 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
 
         protected abstract TEntity ToPersistence(TDomain domain);
 
+        protected virtual void UpdateFields(TEntity entity, TDomain domain)
+        {
+
+        }
+
         public IEnumerable<TDomain> Search(string filterOptions, string sortOptions, int index, int limit, out long total)
         {
             return Search(x => true, filterOptions, sortOptions, index, limit, out total);
@@ -54,6 +59,21 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
             var entity = ToPersistence(domain);
             entity = Context.Set<TEntity>().Add(entity);
 
+            Context.SaveChanges();
+
+            return ToDomain(entity);
+        }
+
+        public TDomain Update(TDomain domain)
+        {
+            var entity = Query.FirstOrDefault(x => x.Id == domain.Id);
+
+            if (entity == null)
+            {
+                return null;
+            }
+
+            UpdateFields(entity, domain);
             Context.SaveChanges();
 
             return ToDomain(entity);

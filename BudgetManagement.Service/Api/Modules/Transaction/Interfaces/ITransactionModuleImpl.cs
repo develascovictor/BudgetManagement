@@ -9,15 +9,11 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Interfaces
     public interface ITransactionModuleImpl
     {
         Task<string> HealthCheckAsync();
-
         Task<TransactionDto> GetTransactionByIdAsync(GetTransactionByIdRequest request, CancellationToken cancellationToken);
-
         Task<Page<TransactionDto>> SearchTransactionsByBudgetIdAsync(SearchTransactionsByBudgetIdRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken);
-
         Task<TransactionDto> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken);
-
+        Task<TransactionDto> UpdateTransactionAsync(UpdateTransactionRequest request, CancellationToken cancellationToken);
         Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken);
-
         Task<IncomeDto> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken);
     }
 }

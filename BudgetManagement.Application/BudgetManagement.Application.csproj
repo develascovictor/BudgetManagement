@@ -146,6 +146,7 @@
     <Compile Include="Interfaces\IBudgetService.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Base\BaseTransactionDefinition.cs" />
+    <Compile Include="Models\TransactionUpdateDefinition.cs" />
     <Compile Include="Models\TransactionCreateDefinition.cs" />
     <Compile Include="Models\IncomeCreateDefinition.cs" />
     <Compile Include="Models\ExpenseCreateDefinition.cs" />

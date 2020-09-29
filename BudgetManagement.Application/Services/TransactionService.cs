@@ -5,6 +5,7 @@ using BudgetManagement.Domain.Exceptions;
 using BudgetManagement.Shared.Pagination.Models;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -35,44 +36,12 @@ namespace BudgetManagement.Application.Services
 
         public Transaction CreateTransaction(TransactionCreateDefinition transactionCreationDefinition)
         {
-            var budget = _unitOfWork.BudgetRepository.GetById(transactionCreationDefinition.BudgetId);
-
-            if (budget == null)
-            {
-                throw new BudgetNotFoundException(transactionCreationDefinition.BudgetId);
-            }
-
-            if (transactionCreationDefinition.TransactionTypeId == null)
-            {
-                if (budget.HasTypes)
-                {
-                    //TODO:
-                }
-            }
-
-            else
-            {
-                var transactionTypeId = transactionCreationDefinition.TransactionTypeId ?? 0;
-                var transactionType = _unitOfWork.TransactionTypeRepository.GetById(transactionTypeId);
-
-                if (transactionType == null)
-                {
-                    throw new TransactionTypeNotFoundException(transactionTypeId);
-                }
-            }
+            ValidateBudgetAndTransactionTypeId(transactionCreationDefinition.BudgetId, transactionCreationDefinition.TransactionTypeId);
 
             var expenses = transactionCreationDefinition.Expenses.Where(x => x != null).Select(x => new Expense(0, 0, x.Date, x.Amount, x.Rate, DateTime.Now, DateTime.Now)).ToList();
             var incomes = transactionCreationDefinition.Incomes.Where(x => x != null).Select(x => new Income(0, 0, null, x.Date, x.Amount, x.Rate, DateTime.Now, DateTime.Now)).ToList();
 
-            if (expenses.Any(x => x.Date.Date < transactionCreationDefinition.Date.Date))
-            {
-                //TODO:
-            }
-
-            if (incomes.Any(x => x.Date.Date < transactionCreationDefinition.Date.Date))
-            {
-                //TODO:
-            }
+            ValidateDate(transactionCreationDefinition.Date, expenses, incomes);
 
             var domain = new Transaction
             (
@@ -87,11 +56,82 @@ namespace BudgetManagement.Application.Services
                 expenses,
                 incomes
             );
-            domain = _unitOfWork.TransactionRepository.Create(domain);
+            var createdDomain = _unitOfWork.TransactionRepository.Create(domain);
 
             _unitOfWork.SaveChanges();
 
-            return domain;
+            return createdDomain;
+        }
+
+        public Transaction UpdateTransaction(int id, TransactionUpdateDefinition transactionUpdateDefinition)
+        {
+            var transaction = _unitOfWork.TransactionRepository.GetById(id);
+
+            if (transaction == null)
+            {
+                throw new TransactionNotFoundException(id);
+            }
+
+            ValidateBudgetAndTransactionTypeId(transaction.BudgetId, transactionUpdateDefinition.TransactionTypeId);
+
+            //TODO: Determine if this goes on domain instead
+            if (transactionUpdateDefinition.Date != null)
+            {
+                ValidateDate((DateTime) transactionUpdateDefinition.Date, transaction.Expenses, transaction.Incomes);
+            }
+
+            transaction
+                .UpdateTransactionTypeId(transactionUpdateDefinition.TransactionTypeId)
+                .UpdateDate(transactionUpdateDefinition.Date)
+                .UpdateDescription(transactionUpdateDefinition.Description)
+                .UpdateNotes(transactionUpdateDefinition.Notes);
+
+            var updatedTransaction = _unitOfWork.TransactionRepository.Update(transaction);
+            _unitOfWork.SaveChanges();
+
+            return updatedTransaction;
+        }
+
+        private void ValidateBudgetAndTransactionTypeId(int budgetId, int? transactionTypeId)
+        {
+            var budget = _unitOfWork.BudgetRepository.GetById(budgetId);
+
+            if (budget == null)
+            {
+                throw new BudgetNotFoundException(budgetId);
+            }
+
+            if (transactionTypeId == null)
+            {
+                if (budget.HasTypes)
+                {
+                    //TODO:
+                }
+            }
+
+            else
+            {
+                var transactionTypeIdAsInt = transactionTypeId ?? 0;
+                var transactionType = _unitOfWork.TransactionTypeRepository.GetById(transactionTypeIdAsInt);
+
+                if (transactionType == null)
+                {
+                    throw new TransactionTypeNotFoundException(transactionTypeIdAsInt);
+                }
+            }
+        }
+
+        private void ValidateDate(DateTime date, IReadOnlyCollection<Expense> expenses, IReadOnlyCollection<Income> incomes)
+        {
+            if (expenses.Any(x => x.Date.Date < date.Date))
+            {
+                //TODO:
+            }
+
+            if (incomes.Any(x => x.Date.Date < date.Date))
+            {
+                //TODO:
+            }
         }
 
         public Expense CreateExpense(ExpenseCreateDefinition expenseCreateDefinition)

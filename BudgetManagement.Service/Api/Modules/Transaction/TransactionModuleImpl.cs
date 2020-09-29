@@ -70,6 +70,14 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             return dto;
         }
 
+        public async Task<TransactionDto> UpdateTransactionAsync(UpdateTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await RunRequestAndDispatchEventAsync<UpdateTransactionRequest, TransactionUpdateDefinition>(x => _transactionService.UpdateTransaction(request.Id, x), request, caller.Method, cancellationToken);
+
+            return dto;
+        }
+
         public async Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
