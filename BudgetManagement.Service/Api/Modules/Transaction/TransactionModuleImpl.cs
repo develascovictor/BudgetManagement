@@ -26,7 +26,9 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             new CreateTransactionRequestProfile(),
             new ExpenseDtoProfile(),
             new IncomeDtoProfile(),
-            new TransactionDtoProfile()
+            new TransactionDtoProfile(),
+            new UpdateExpenseRequestProfile(),
+            new UpdateIncomeRequestProfile()
         };
 
         private static readonly IConfigurationProvider MapperConfigurationProvider = new MapperConfiguration(cfg =>
@@ -86,10 +88,26 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             return dto;
         }
 
+        public async Task<ExpenseDto> UpdateExpenseAsync(UpdateExpenseRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await RunAlternateRequestAndDispatchEventAsync<UpdateExpenseRequest, ExpenseUpdateDefinition, ExpenseDto, Domain.Entities.Expense>(x => _transactionService.UpdateExpense(request.Id, x), request, caller.Method, cancellationToken);
+
+            return dto;
+        }
+
         public async Task<IncomeDto> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
             var dto = await RunAlternateRequestAndDispatchEventAsync<CreateIncomeRequest, IncomeCreateDefinition, IncomeDto, Domain.Entities.Income>(x => _transactionService.CreateIncome(x), request, caller.Method, cancellationToken);
+
+            return dto;
+        }
+
+        public async Task<IncomeDto> UpdateIncomeAsync(UpdateIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await RunAlternateRequestAndDispatchEventAsync<UpdateIncomeRequest, IncomeUpdateDefinition, IncomeDto, Domain.Entities.Income>(x => _transactionService.UpdateIncome(request.Id, x), request, caller.Method, cancellationToken);
 
             return dto;
         }

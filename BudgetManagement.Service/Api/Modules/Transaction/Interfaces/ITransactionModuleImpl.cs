@@ -14,6 +14,8 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Interfaces
         Task<TransactionDto> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken);
         Task<TransactionDto> UpdateTransactionAsync(UpdateTransactionRequest request, CancellationToken cancellationToken);
         Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken);
+        Task<ExpenseDto> UpdateExpenseAsync(UpdateExpenseRequest request, CancellationToken cancellationToken);
         Task<IncomeDto> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken);
+        Task<IncomeDto> UpdateIncomeAsync(UpdateIncomeRequest request, CancellationToken cancellationToken);
     }
 }

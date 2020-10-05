@@ -2,7 +2,7 @@
 
 namespace BudgetManagement.Application.Models
 {
-    public class ExpenseCreateDefinition : BaseCreateTransactionDefinition
+    public class ExpenseUpdateDefinition : BaseTransactionDefinition
     {
     }
 }

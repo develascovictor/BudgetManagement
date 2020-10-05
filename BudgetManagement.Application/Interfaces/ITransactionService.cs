@@ -11,6 +11,8 @@ namespace BudgetManagement.Application.Interfaces
         Transaction CreateTransaction(TransactionCreateDefinition transactionCreationDefinition);
         Transaction UpdateTransaction(int id, TransactionUpdateDefinition transactionUpdateDefinition);
         Expense CreateExpense(ExpenseCreateDefinition expenseCreateDefinition);
+        Expense UpdateExpense(int id, ExpenseUpdateDefinition expenseUpdateDefinition);
         Income CreateIncome(IncomeCreateDefinition incomeCreateDefinition);
+        Income UpdateIncome(int id, IncomeUpdateDefinition incomeUpdateDefinition);
     }
 }

@@ -39,6 +39,31 @@ namespace BudgetManagement.Domain.Entities
             UpdatedOn = updatedOn;
         }
 
+        public Income UpdateDate(DateTime? date)
+        {
+            return UpdateProperty<Income>(date, Date, x => Date = x);
+        }
+
+        public Income UpdateAmount(decimal? amount)
+        {
+            if (amount != null && amount <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<Income>(amount, Amount, x => Amount = x, () => Value = Amount / Rate);
+        }
+
+        public Income UpdateRate(decimal? rate)
+        {
+            if (rate != null && rate <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<Income>(rate, Rate, x => Rate = x, () => Value = Amount / Rate);
+        }
+
         protected override IEvent GetEvent()
         {
             return null;

@@ -145,7 +145,10 @@
     <Compile Include="Interfaces\ITransactionService.cs" />
     <Compile Include="Interfaces\IBudgetService.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Models\Base\BaseCreateTransactionDefinition.cs" />
     <Compile Include="Models\Base\BaseTransactionDefinition.cs" />
+    <Compile Include="Models\ExpenseUpdateDefinition.cs" />
+    <Compile Include="Models\IncomeUpdateDefinition.cs" />
     <Compile Include="Models\TransactionUpdateDefinition.cs" />
     <Compile Include="Models\TransactionCreateDefinition.cs" />
     <Compile Include="Models\IncomeCreateDefinition.cs" />

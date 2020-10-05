@@ -36,6 +36,31 @@ namespace BudgetManagement.Domain.Entities
             UpdatedOn = updatedOn;
         }
 
+        public Expense UpdateDate(DateTime? date)
+        {
+            return UpdateProperty<Expense>(date, Date, x => Date = x);
+        }
+
+        public Expense UpdateAmount(decimal? amount)
+        {
+            if (amount != null && amount <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<Expense>(amount, Amount, x => Amount = x, () => Value = Amount / Rate);
+        }
+
+        public Expense UpdateRate(decimal? rate)
+        {
+            if (rate != null && rate <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<Expense>(rate, Rate, x => Rate = x, () => Value = Amount / Rate);
+        }
+
         protected override IEvent GetEvent()
         {
             return null;

@@ -87,6 +87,17 @@ namespace BudgetManagement.Api.Controllers
             return GetResponse(commandResult);
         }
 
+        [HttpPatch]
+        [Route("{id}/expense")]
+        public async Task<IHttpActionResult> UpdateExpenseAsync([FromUri] int id, [FromBody] UpdateExpenseRequest request, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{id}/expense";
+            Log.Info($"UpdateExpenseAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.UpdateExpenseAsync(request, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
         [HttpPost]
         [Route("{id}/income")]
         public async Task<IHttpActionResult> CreateIncomeAsync([FromUri] int id, [FromBody] CreateIncomeRequest request, CancellationToken cancellationToken)
@@ -95,6 +106,17 @@ namespace BudgetManagement.Api.Controllers
             Log.Info($"CreateIncomeAsync - Url: {url}");
 
             var commandResult = await _transactionModule.CreateIncomeAsync(request, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
+        [HttpPatch]
+        [Route("{id}/income")]
+        public async Task<IHttpActionResult> UpdateIncomeAsync([FromUri] int id, [FromBody] UpdateIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{id}/income";
+            Log.Info($"UpdateIncomeAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.UpdateIncomeAsync(request, cancellationToken);
             return GetResponse(commandResult);
         }
     }

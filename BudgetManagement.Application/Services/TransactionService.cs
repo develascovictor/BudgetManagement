@@ -160,6 +160,33 @@ namespace BudgetManagement.Application.Services
             return domain;
         }
 
+        public Expense UpdateExpense(int id, ExpenseUpdateDefinition expenseUpdateDefinition)
+        {
+            var expense = _unitOfWork.ExpenseRepository.GetById(id);
+
+            if (expense == null)
+            {
+                throw new ExpenseNotFoundException(id);
+            }
+
+            var transaction = _unitOfWork.TransactionRepository.GetById(expense.TransactionId);
+
+            if (transaction.Date > expenseUpdateDefinition.Date)
+            {
+                //TOD:
+            }
+
+            expense
+                .UpdateDate(expenseUpdateDefinition.Date)
+                .UpdateAmount(expenseUpdateDefinition.Amount)
+                .UpdateRate(expenseUpdateDefinition.Rate);
+
+            var updatedExpense = _unitOfWork.ExpenseRepository.Update(expense);
+            _unitOfWork.SaveChanges();
+
+            return updatedExpense;
+        }
+
         public Income CreateIncome(IncomeCreateDefinition incomeCreateDefinition)
         {
             var transaction = _unitOfWork.TransactionRepository.GetById(incomeCreateDefinition.TransactionId);
@@ -185,6 +212,33 @@ namespace BudgetManagement.Application.Services
             _unitOfWork.SaveChanges();
 
             return domain;
+        }
+
+        public Income UpdateIncome(int id, IncomeUpdateDefinition incomeUpdateDefinition)
+        {
+            var income = _unitOfWork.IncomeRepository.GetById(id);
+
+            if (income == null)
+            {
+                throw new IncomeNotFoundException(id);
+            }
+
+            var transaction = _unitOfWork.TransactionRepository.GetById(income.TransactionId);
+
+            if (transaction.Date > incomeUpdateDefinition.Date)
+            {
+                //TOD:
+            }
+
+            income
+                .UpdateDate(incomeUpdateDefinition.Date)
+                .UpdateAmount(incomeUpdateDefinition.Amount)
+                .UpdateRate(incomeUpdateDefinition.Rate);
+
+            var updatedIncome = _unitOfWork.IncomeRepository.Update(income);
+            _unitOfWork.SaveChanges();
+
+            return updatedIncome;
         }
     }
 }

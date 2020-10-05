@@ -299,6 +299,60 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             }
         }
 
+        public async Task<CommandResult<ExpenseDto>> UpdateExpenseAsync(UpdateExpenseRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<ExpenseDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            var validator = new UpdateExpenseRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.UpdateExpenseAsync(request, cancellationToken);
+
+                if (dto == null)
+                {
+                    return CommandResult<ExpenseDto>.NotFound();
+                }
+
+                if (dto.Errors.Any())
+                {
+                    return ExceptionExtensions.GetBadResponse<ExpenseDto>(dto.Errors);
+                }
+
+                return CommandResult<ExpenseDto>.Ok(dto);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<ExpenseDto>(parameters);
+            }
+        }
+
         public async Task<CommandResult<IncomeDto>> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken)
         {
             var parameters = new { request, cancellationToken };
@@ -327,6 +381,60 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             try
             {
                 var dto = await _moduleImpl.CreateIncomeAsync(request, cancellationToken);
+
+                if (dto == null)
+                {
+                    return CommandResult<IncomeDto>.NotFound();
+                }
+
+                if (dto.Errors.Any())
+                {
+                    return ExceptionExtensions.GetBadResponse<IncomeDto>(dto.Errors);
+                }
+
+                return CommandResult<IncomeDto>.Ok(dto);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<IncomeDto>(parameters);
+            }
+        }
+
+        public async Task<CommandResult<IncomeDto>> UpdateIncomeAsync(UpdateIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<IncomeDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            var validator = new UpdateIncomeRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.UpdateIncomeAsync(request, cancellationToken);
 
                 if (dto == null)
                 {

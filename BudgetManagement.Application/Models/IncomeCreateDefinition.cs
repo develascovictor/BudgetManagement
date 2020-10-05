@@ -2,7 +2,7 @@
 
 namespace BudgetManagement.Application.Models
 {
-    public class IncomeCreateDefinition : BaseTransactionDefinition
+    public class IncomeCreateDefinition : BaseCreateTransactionDefinition
     {
     }
 }

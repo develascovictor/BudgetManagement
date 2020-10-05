@@ -190,6 +190,8 @@
     <Compile Include="Api\Modules\TransactionType\Views\GetTransactionTypesByBudgetIdRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Interfaces\ITransactionModule.cs" />
     <Compile Include="Api\Modules\Transaction\Interfaces\ITransactionModuleImpl.cs" />
+    <Compile Include="Api\Modules\Transaction\Mapping\UpdateIncomeRequestProfile.cs" />
+    <Compile Include="Api\Modules\Transaction\Mapping\UpdateExpenseRequestProfile.cs" />
     <Compile Include="Api\Modules\Transaction\Mapping\UpdateTransactionRequestProfile.cs" />
     <Compile Include="Api\Modules\Transaction\Mapping\CreateTransactionRequestProfile.cs" />
     <Compile Include="Api\Modules\Transaction\Mapping\CreateIncomeRequestProfile.cs" />
@@ -202,12 +204,16 @@
     <Compile Include="Api\Modules\Transaction\Models\TransactionDto.cs" />
     <Compile Include="Api\Modules\Transaction\TransactionModule.cs" />
     <Compile Include="Api\Modules\Transaction\TransactionModuleImpl.cs" />
+    <Compile Include="Api\Modules\Transaction\Validators\UpdateIncomeRequestValidator.cs" />
+    <Compile Include="Api\Modules\Transaction\Validators\UpdateExpenseRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateTransactionRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\CreateTransactionRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\CreateIncomeRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\CreateExpenseRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\GetTransactionByIdRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\SearchTransactionsByBudgetIdRequestValidator.cs" />
+    <Compile Include="Api\Modules\Transaction\Views\UpdateIncomeRequest.cs" />
+    <Compile Include="Api\Modules\Transaction\Views\UpdateExpenseRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\CreateTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\CreateIncomeRequest.cs" />

@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace BudgetManagement.Application.Models.Base
+namespace BudgetManagement.Service.Api.Modules.Transaction.Views
 {
-    public abstract class BaseTransactionDefinition
+    public class UpdateIncomeRequest
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public decimal Rate { get; set; }
