@@ -169,6 +169,7 @@
     <Compile Include="Api\Modules\Budget\Models\BudgetDto.cs" />
     <Compile Include="Api\Modules\Budget\Validators\SearchBudgetsRequestValidator.cs" />
     <Compile Include="Api\Modules\Budget\Views\SearchBudgetsRequest.cs" />
+    <Compile Include="Api\Modules\SalaryEntry\Mapping\UpdateSalaryEntryRequestProfile.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Mapping\CreateSalaryEntryRequestProfile.cs" />
     <Compile Include="Api\Modules\SalaryEntry\SalaryEntryModule.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Interfaces\ISalaryEntryModuleImpl.cs" />
@@ -176,8 +177,10 @@
     <Compile Include="Api\Modules\SalaryEntry\Mapping\SalaryEntryDtoProfile.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Models\SalaryEntryDto.cs" />
     <Compile Include="Api\Modules\SalaryEntry\SalaryEntryModuleImpl.cs" />
+    <Compile Include="Api\Modules\SalaryEntry\Validators\UpdateSalaryEntryRequestValidator.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Validators\CreateSalaryEntryRequestValidator.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Validators\SearchSalaryEntriesRequestValidator.cs" />
+    <Compile Include="Api\Modules\SalaryEntry\Views\UpdateSalaryEntryRequest.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Views\CreateSalaryEntryRequest.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Views\SearchSalaryEntriesRequest.cs" />
     <Compile Include="Api\Modules\TransactionType\Interfaces\ITransactionTypeModule.cs" />

@@ -57,5 +57,13 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry
 
             return dto;
         }
+
+        public async Task<SalaryEntryDto> UpdateSalaryEntryAsync(UpdateSalaryEntryRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await RunRequestAndDispatchEventAsync<UpdateSalaryEntryRequest, SalaryEntryUpdateDefinition>(x => _salaryEntryService.UpdateSalaryEntry(request.Id, x), request, caller.Method, cancellationToken);
+
+            return dto;
+        }
     }
 }

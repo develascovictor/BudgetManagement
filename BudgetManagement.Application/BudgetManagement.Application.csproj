@@ -147,6 +147,7 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Base\BaseCreateTransactionDefinition.cs" />
     <Compile Include="Models\Base\BaseTransactionDefinition.cs" />
+    <Compile Include="Models\SalaryEntryUpdateDefinition.cs" />
     <Compile Include="Models\ExpenseUpdateDefinition.cs" />
     <Compile Include="Models\IncomeUpdateDefinition.cs" />
     <Compile Include="Models\TransactionUpdateDefinition.cs" />

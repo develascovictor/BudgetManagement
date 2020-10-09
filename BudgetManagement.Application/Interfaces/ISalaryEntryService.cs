@@ -8,5 +8,6 @@ namespace BudgetManagement.Application.Interfaces
     {
         DataPage<SalaryEntry> SearchSalaryEntries(string filterOptions, string sortOptions, PageOptions pageOptions);
         SalaryEntry CreateSalaryEntry(SalaryEntryCreateDefinition salaryEntryCreateDefinition);
+        SalaryEntry UpdateSalaryEntry(int id, SalaryEntryUpdateDefinition salaryEntryUpdateDefinition);
     }
 }

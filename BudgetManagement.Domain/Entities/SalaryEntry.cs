@@ -10,7 +10,7 @@ namespace BudgetManagement.Domain.Entities
         public DateTime Date { get; private set; }
         public decimal Amount { get; private set; }
         public decimal Rate { get; private set; }
-        public decimal Value { get; }
+        public decimal Value { get; private set; }
 
         public SalaryEntry()
         {
@@ -34,6 +34,31 @@ namespace BudgetManagement.Domain.Entities
             Value = amount / rate;
             CreatedOn = createdOn;
             UpdatedOn = updatedOn;
+        }
+
+        public SalaryEntry UpdateDate(DateTime? date)
+        {
+            return UpdateProperty<SalaryEntry>(date, Date, x => Date = x);
+        }
+
+        public SalaryEntry UpdateAmount(decimal? amount)
+        {
+            if (amount != null && amount <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<SalaryEntry>(amount, Amount, x => Amount = x, () => Value = Amount / Rate);
+        }
+
+        public SalaryEntry UpdateRate(decimal? rate)
+        {
+            if (rate != null && rate <= 0)
+            {
+                //TODO:
+            }
+
+            return UpdateProperty<SalaryEntry>(rate, Rate, x => Rate = x, () => Value = Amount / Rate);
         }
 
         protected override IEvent GetEvent()

@@ -48,5 +48,16 @@ namespace BudgetManagement.Api.Controllers
             var commandResult = await _salaryEntryModule.CreateSalaryEntryAsync(request, cancellationToken);
             return GetResponse(commandResult);
         }
+
+        [HttpPatch]
+        [Route("")]
+        public async Task<IHttpActionResult> UpdateSalaryEntryAsync([FromBody] UpdateSalaryEntryRequest request, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}";
+            Log.Info($"UpdateSalaryEntryAsync - Url: {url}");
+
+            var commandResult = await _salaryEntryModule.UpdateSalaryEntryAsync(request, cancellationToken);
+            return GetResponse(commandResult);
+        }
     }
 }

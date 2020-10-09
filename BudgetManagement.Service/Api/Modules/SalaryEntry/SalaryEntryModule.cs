@@ -147,5 +147,59 @@ namespace BudgetManagement.Service.Api.Modules.Budget
                 return e.GetInternalServerErrorResponse<SalaryEntryDto>(parameters);
             }
         }
+
+        public async Task<CommandResult<SalaryEntryDto>> UpdateSalaryEntryAsync(UpdateSalaryEntryRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<SalaryEntryDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<SalaryEntryDto>(parameters);
+            }
+
+            var validator = new UpdateSalaryEntryRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<SalaryEntryDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.UpdateSalaryEntryAsync(request, cancellationToken);
+
+                if (dto == null)
+                {
+                    return CommandResult<SalaryEntryDto>.NotFound();
+                }
+
+                if (dto.Errors.Any())
+                {
+                    return ExceptionExtensions.GetBadResponse<SalaryEntryDto>(dto.Errors);
+                }
+
+                return CommandResult<SalaryEntryDto>.Ok(dto);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<SalaryEntryDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<SalaryEntryDto>(parameters);
+            }
+        }
     }
 }

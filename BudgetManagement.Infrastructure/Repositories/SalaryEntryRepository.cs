@@ -23,5 +23,14 @@ namespace BudgetManagement.Infrastructure.Repositories
         protected override IEnumerable<Domain.Entities.SalaryEntry> ToDomain(IEnumerable<SalaryEntry> entities) => EntityMapper.ToDomain(entities);
 
         protected override SalaryEntry ToPersistence(Domain.Entities.SalaryEntry domain) => EntityMapper.ToPersistence(domain);
+
+        protected override void UpdateFields(SalaryEntry entity, Domain.Entities.SalaryEntry domain)
+        {
+            entity.Date = domain.Date;
+            entity.Amount = domain.Amount;
+            entity.Rate = domain.Rate;
+            entity.Value = domain.Value;
+            entity.UpdatedOn = domain.UpdatedOn;
+        }
     }
 }

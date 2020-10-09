@@ -52,5 +52,32 @@ namespace BudgetManagement.Application.Services
 
             return domain;
         }
+
+        public SalaryEntry UpdateSalaryEntry(int id, SalaryEntryUpdateDefinition salaryEntryUpdateDefinition)
+        {
+            var salaryEntry = _unitOfWork.SalaryEntryRepository.GetById(id);
+
+            if (salaryEntry == null)
+            {
+                throw new SalaryEntryNotFoundException(id);
+            }
+
+            var incomes = _unitOfWork.IncomeRepository.GetBySalaryEntyId(id);
+
+            if (incomes.Sum(x => x.Value) > salaryEntryUpdateDefinition.Amount / salaryEntryUpdateDefinition.Rate)
+            {
+                //TOD:
+            }
+
+            salaryEntry
+                .UpdateDate(salaryEntryUpdateDefinition.Date)
+                .UpdateAmount(salaryEntryUpdateDefinition.Amount)
+                .UpdateRate(salaryEntryUpdateDefinition.Rate);
+
+            var updatedSalaryEntry = _unitOfWork.SalaryEntryRepository.Update(salaryEntry);
+            _unitOfWork.SaveChanges();
+
+            return updatedSalaryEntry;
+        }
     }
 }

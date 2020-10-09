@@ -2,6 +2,7 @@
 using BudgetManagement.Infrastructure.Repositories.Base;
 using BudgetManagement.Persistence.SqlServer;
 using BudgetManagement.Persistence.SqlServer.Mapping;
+using Expressions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,6 +31,12 @@ namespace BudgetManagement.Infrastructure.Repositories
             entity.Rate = domain.Rate;
             entity.Value = domain.Value;
             entity.UpdatedOn = domain.UpdatedOn;
+        }
+
+        public IEnumerable<Domain.Entities.Income> GetBySalaryEntyId(int salaryEntryId)
+        {
+            var expression = ExpressionExtensions.CreateEqualExpression<Income, int>(nameof(Income.SalaryEntryId), salaryEntryId, "in");
+            return Get(expression);
         }
     }
 }
