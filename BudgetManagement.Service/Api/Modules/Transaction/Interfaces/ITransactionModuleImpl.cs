@@ -12,6 +12,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Interfaces
         Task<TransactionDto> GetTransactionByIdAsync(GetTransactionByIdRequest request, CancellationToken cancellationToken);
         Task<Page<TransactionDto>> SearchTransactionsByBudgetIdAsync(SearchTransactionsByBudgetIdRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken);
         Task<TransactionDto> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken);
+        Task<TransactionDto> CreateTransactionAsync(CreateSalaryEntryTransactionRequest request, CancellationToken cancellationToken);
         Task<TransactionDto> UpdateTransactionAsync(UpdateTransactionRequest request, CancellationToken cancellationToken);
         Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken);
         Task<ExpenseDto> UpdateExpenseAsync(UpdateExpenseRequest request, CancellationToken cancellationToken);

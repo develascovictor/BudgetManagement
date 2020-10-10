@@ -150,6 +150,7 @@
     <Compile Include="Models\SalaryEntryUpdateDefinition.cs" />
     <Compile Include="Models\ExpenseUpdateDefinition.cs" />
     <Compile Include="Models\IncomeUpdateDefinition.cs" />
+    <Compile Include="Models\SalaryEntryTransactionCreateDefinition.cs" />
     <Compile Include="Models\TransactionUpdateDefinition.cs" />
     <Compile Include="Models\TransactionCreateDefinition.cs" />
     <Compile Include="Models\IncomeCreateDefinition.cs" />

@@ -65,6 +65,17 @@ namespace BudgetManagement.Api.Controllers
             return GetResponse(commandResult);
         }
 
+        [HttpPost]
+        [Route("salary")]
+        public async Task<IHttpActionResult> CreateTransactionAsync([FromBody] CreateSalaryEntryTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/salary";
+            Log.Info($"CreateTransactionAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.CreateTransactionAsync(request, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
         [HttpPatch]
         [Route("{id}")]
         public async Task<IHttpActionResult> UpdateTransactionAsync([FromUri] int id, [FromBody] UpdateTransactionRequest request, CancellationToken cancellationToken)

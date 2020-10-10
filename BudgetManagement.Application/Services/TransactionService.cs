@@ -43,6 +43,25 @@ namespace BudgetManagement.Application.Services
 
             ValidateDate(transactionCreationDefinition.Date, expenses, incomes);
 
+            if (incomes.Any(x => x.SalaryEntryId != null))
+            {
+                var salaryEntryIds = incomes.Where(x => x.SalaryEntryId != null).Select(x => (int) x.SalaryEntryId).ToList();
+
+                if (salaryEntryIds.Count != 1)
+                {
+                    //TODO: Invalid operation
+                    throw new Exception();
+                }
+
+                var salaryEntryId = salaryEntryIds.Single();
+                var salaryEntry = _unitOfWork.SalaryEntryRepository.GetById(salaryEntryId);
+
+                if (salaryEntry == null)
+                {
+                    throw new SalaryEntryNotFoundException(salaryEntryId);
+                }
+            }
+
             var domain = new Transaction
             (
                 0,
@@ -56,6 +75,50 @@ namespace BudgetManagement.Application.Services
                 expenses,
                 incomes
             );
+
+            var createdDomain = _unitOfWork.TransactionRepository.Create(domain);
+
+            _unitOfWork.SaveChanges();
+
+            return createdDomain;
+        }
+
+        public Transaction CreateTransaction(SalaryEntryTransactionCreateDefinition salaryEntryTransactionCreateDefinition)
+        {
+            ValidateBudgetAndTransactionTypeId(salaryEntryTransactionCreateDefinition.BudgetId, null);
+
+            var salaryEntry = _unitOfWork.SalaryEntryRepository.GetById(salaryEntryTransactionCreateDefinition.SalaryEntryId);
+
+            if (salaryEntry == null)
+            {
+                throw new SalaryEntryNotFoundException(salaryEntryTransactionCreateDefinition.SalaryEntryId);
+            }
+
+            var income = new Income
+            (
+                0,
+                0,
+                salaryEntryTransactionCreateDefinition.SalaryEntryId,
+                salaryEntryTransactionCreateDefinition.Date,
+                salaryEntryTransactionCreateDefinition.Amount,
+                salaryEntryTransactionCreateDefinition.Rate,
+                DateTime.Now,
+                DateTime.Now
+            );
+            var domain = new Transaction
+            (
+                0,
+                salaryEntryTransactionCreateDefinition.BudgetId,
+                null,
+                salaryEntryTransactionCreateDefinition.Date,
+                "Salary",
+                null,
+                DateTime.Now,
+                DateTime.Now,
+                null,
+                new List<Income> { income }
+            );
+
             var createdDomain = _unitOfWork.TransactionRepository.Create(domain);
 
             _unitOfWork.SaveChanges();
@@ -143,6 +206,8 @@ namespace BudgetManagement.Application.Services
                 throw new TransactionNotFoundException(expenseCreateDefinition.TransactionId);
             }
 
+            //TODO: Add validation if transaction does not contain an income with salary entry ID
+
             var domain = new Expense
             (
                 0,
@@ -195,6 +260,8 @@ namespace BudgetManagement.Application.Services
             {
                 throw new TransactionNotFoundException(incomeCreateDefinition.TransactionId);
             }
+
+            //TODO: Add validation if transaction does not contain an income with salary entry ID
 
             var domain = new Income
             (

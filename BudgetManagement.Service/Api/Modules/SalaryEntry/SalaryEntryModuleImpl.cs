@@ -22,7 +22,8 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry
         private static readonly List<Profile> Profiles = new List<Profile>
         {
             new SalaryEntryDtoProfile(),
-            new CreateSalaryEntryRequestProfile()
+            new CreateSalaryEntryRequestProfile(),
+            new UpdateSalaryEntryRequestProfile()
         };
 
         private static readonly IConfigurationProvider MapperConfigurationProvider = new MapperConfiguration(cfg =>
