@@ -1,4 +1,6 @@
 ﻿using BudgetManagement.Application.Services;
+using BudgetManagement.Client.SalaryEntry;
+using BudgetManagement.Client.Transaction;
 using BudgetManagement.Infrastructure;
 using BudgetManagement.Persistence.SqlServer;
 using BudgetManagement.Service.Api.Modules.Budget;
@@ -47,6 +49,12 @@ namespace BudgetManagement.Client
         private void MainForm_Load(object sender, EventArgs e)
         {
             Reload();
+        }
+
+        private void btnAddSalaryEntry_Click(object sender, EventArgs e)
+        {
+            var sef = new AddSalaryEntryForm();
+            sef.Show();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BudgetManagement.Client
+﻿namespace BudgetManagement.Client.Transaction
 {
     partial class TransactionsByBudgetForm
     {
@@ -59,7 +59,7 @@
             this.Controls.Add(this.btnAddTransaction);
             this.Controls.Add(this.gridTransactions);
             this.Name = "TransactionsByBudgetForm";
-            this.Text = "TransactionsByBudgetForm";
+            this.Text = "Transactions By Budget";
             this.Load += new System.EventHandler(this.TransactionsByBudgetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridTransactions)).EndInit();
             this.ResumeLayout(false);

@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddTransactionForm.cs">
+    <Compile Include="Transaction\AddTransactionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddTransactionForm.Designer.cs">
+    <Compile Include="Transaction\AddTransactionForm.Designer.cs">
       <DependentUpon>AddTransactionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -67,13 +67,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransactionsByBudgetForm.cs">
+    <Compile Include="SalaryEntry\AddSalaryEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TransactionsByBudgetForm.Designer.cs">
+    <Compile Include="SalaryEntry\AddSalaryEntryForm.Designer.cs">
+      <DependentUpon>AddSalaryEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\TransactionsByBudgetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaction\TransactionsByBudgetForm.Designer.cs">
       <DependentUpon>TransactionsByBudgetForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddTransactionForm.resx">
+    <EmbeddedResource Include="Transaction\AddTransactionForm.resx">
       <DependentUpon>AddTransactionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -88,7 +94,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TransactionsByBudgetForm.resx">
+    <EmbeddedResource Include="SalaryEntry\AddSalaryEntryForm.resx">
+      <DependentUpon>AddSalaryEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transaction\TransactionsByBudgetForm.resx">
       <DependentUpon>TransactionsByBudgetForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -131,5 +140,6 @@
       <Name>BudgetManagement.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

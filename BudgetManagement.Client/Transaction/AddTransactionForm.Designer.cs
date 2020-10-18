@@ -1,4 +1,4 @@
-﻿namespace BudgetManagement.Client
+﻿namespace BudgetManagement.Client.Transaction
 {
     partial class AddTransactionForm
     {
@@ -328,7 +328,7 @@
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.datePickerDate);
             this.Name = "AddTransactionForm";
-            this.Text = "AddTransactionForm";
+            this.Text = "Add Transaction";
             this.Load += new System.EventHandler(this.AddTransactionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericExpenseAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericExpenseRate)).EndInit();

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Windows.Forms;
 
-namespace BudgetManagement.Client
+namespace BudgetManagement.Client.Transaction
 {
     public partial class AddTransactionForm : Form
     {
