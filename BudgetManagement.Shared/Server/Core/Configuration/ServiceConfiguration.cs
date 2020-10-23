@@ -10,7 +10,7 @@ namespace BudgetManagement.Shared.Server.Core.Configuration
 
             if (config == null)
             {
-                throw new ConfigurationErrorsException(string.Format("The section '{0}' does not exist in your configuration file.", configurationSection));
+                throw new ConfigurationErrorsException($"The section '{configurationSection}' does not exist in your configuration file.");
             }
 
             SetConfigurationInstanceValues(config);

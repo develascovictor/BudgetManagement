@@ -17,9 +17,9 @@ namespace BudgetManagement.Client.Transaction
 {
     public partial class AddTransactionForm : Form
     {
-        int _budgetId;
-        ITransactionModule _transactionModule;
-        ITransactionTypeModule _transactionTypeModule;
+        private readonly int _budgetId;
+        private readonly ITransactionModule _transactionModule;
+        private readonly ITransactionTypeModule _transactionTypeModule;
 
         public AddTransactionForm(int budgetId)
         {
@@ -86,15 +86,7 @@ namespace BudgetManagement.Client.Transaction
             };
             var commandResult = await _transactionModule.CreateTransactionAsync(request, default);
 
-            if (commandResult.StatusCode == HttpStatusCode.OK)
-            {
-                MessageBox.Show("SUCCESS");
-            }
-
-            else
-            {
-                MessageBox.Show("ERROR");
-            }
+            MessageBox.Show(commandResult.StatusCode == HttpStatusCode.OK ? "SUCCESS" : "ERROR");
         }
 
         private void numericExpenseAmount_ValueChanged(object sender, EventArgs e)

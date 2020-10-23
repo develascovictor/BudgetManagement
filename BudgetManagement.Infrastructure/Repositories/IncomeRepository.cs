@@ -33,7 +33,7 @@ namespace BudgetManagement.Infrastructure.Repositories
             entity.UpdatedOn = domain.UpdatedOn;
         }
 
-        public IEnumerable<Domain.Entities.Income> GetBySalaryEntyId(int salaryEntryId)
+        public IEnumerable<Domain.Entities.Income> GetBySalaryEntryId(int salaryEntryId)
         {
             var expression = ExpressionExtensions.CreateEqualExpression<Income, int>(nameof(Income.SalaryEntryId), salaryEntryId, "in");
             return Get(expression);

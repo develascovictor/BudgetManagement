@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BudgetManagement.Service.Api.Modules.Budget
+namespace BudgetManagement.Service.Api.Modules.SalaryEntry
 {
     public class SalaryEntryModule : ISalaryEntryModule
     {

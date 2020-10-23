@@ -12,8 +12,8 @@ namespace BudgetManagement.Client.Transaction
 {
     public partial class TransactionsByBudgetForm : Form
     {
-        int _budgetId;
-        ITransactionModule _transactionModule;
+        private readonly int _budgetId;
+        private readonly ITransactionModule _transactionModule;
 
         public TransactionsByBudgetForm(int budgetId)
         {

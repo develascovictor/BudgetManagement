@@ -13,7 +13,7 @@ namespace BudgetManagement.Client.SalaryEntry
 {
     public partial class AddSalaryEntryForm : Form
     {
-        ISalaryEntryModule _salaryEntryModule;
+        private readonly ISalaryEntryModule _salaryEntryModule;
 
         public AddSalaryEntryForm()
         {
@@ -51,15 +51,7 @@ namespace BudgetManagement.Client.SalaryEntry
             };
             var commandResult = await _salaryEntryModule.CreateSalaryEntryAsync(request, default);
 
-            if (commandResult.StatusCode == HttpStatusCode.OK)
-            {
-                MessageBox.Show("SUCCESS");
-            }
-
-            else
-            {
-                MessageBox.Show("ERROR");
-            }
+            MessageBox.Show(commandResult.StatusCode == HttpStatusCode.OK ? "SUCCESS" : "ERROR");
         }
 
         private void numericAmount_ValueChanged(object sender, EventArgs e)

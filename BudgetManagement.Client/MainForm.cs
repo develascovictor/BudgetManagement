@@ -14,7 +14,7 @@ namespace BudgetManagement.Client
 {
     public partial class MainForm : Form
     {
-        IBudgetModule _budgetModule;
+        private readonly IBudgetModule _budgetModule;
 
         public MainForm()
         {
