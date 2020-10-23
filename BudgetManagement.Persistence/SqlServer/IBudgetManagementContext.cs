@@ -1,11 +1,12 @@
-﻿using BudgetManagement.Persistence.SqlServer.Interface;
-using System;
+﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace BudgetManagement.Persistence.SqlServer
 {
     public interface IBudgetManagementContext : IDisposable
     {
+        DbSet<AuditLog> AuditLogs { get; set; }
         DbSet<Budget> Budgets { get; set; }
         DbSet<Expense> Expenses { get; set; }
         DbSet<Income> Incomes { get; set; }

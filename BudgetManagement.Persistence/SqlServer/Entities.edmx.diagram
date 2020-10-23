@@ -23,6 +23,8 @@
         <AssociationConnector Association="BudgetManagementModel.FK_Transfer_Income" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_Transaction_TransactionType" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_SalaryEntry_User" />
+        <EntityTypeShape EntityType="BudgetManagementModel.AuditLog" Width="1.5" PointX="3" PointY="9.125" />
+        <AssociationConnector Association="BudgetManagementModel.FK_AuditLog_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

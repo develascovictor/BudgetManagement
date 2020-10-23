@@ -19,6 +19,7 @@ namespace BudgetManagement.Persistence.SqlServer
         {
             this.Budgets = new HashSet<Budget>();
             this.SalaryEntries = new HashSet<SalaryEntry>();
+            this.AuditLogs = new HashSet<AuditLog>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,7 @@ namespace BudgetManagement.Persistence.SqlServer
         public virtual ICollection<Budget> Budgets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalaryEntry> SalaryEntries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AuditLog> AuditLogs { get; set; }
     }
 }
