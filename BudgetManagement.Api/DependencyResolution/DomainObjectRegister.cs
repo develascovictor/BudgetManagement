@@ -33,8 +33,9 @@ namespace BudgetManagement.Api.DependencyResolution
             //builder.Register(c => c.Resolve<IRepositoryFactory>().CreateEntityRepository()).As<IEntityRepository>().InstancePerRequest();
             //builder.Register(c => c.Resolve<IRepositoryFactory>().CreateTenantRepository()).As<ITenantRepository>().InstancePerRequest();
             //builder.RegisterType<ReadOnlyTenantRepository>().As<IReadOnlyTenantRepository>().InstancePerRequest();
-            builder.RegisterType<BudgetManagementEntities>().As<IBudgetManagementContext>()
-                    .OnActivating(e => e.Instance.Configuration.ValidateOnSaveEnabled = false);
+
+            builder.RegisterInstance(new BudgetManagementEntities(true)).As<IBudgetManagementContext>()
+                .OnActivating(e => e.Instance.Configuration.ValidateOnSaveEnabled = false);
 
             // Interface layer service registrations (ALPHABETICAL)
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
