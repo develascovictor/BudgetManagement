@@ -12,7 +12,8 @@ namespace BudgetManagement.Persistence.SqlServer.Mapping.Profiles
                 .ForMember(dest => dest.CreatedOn, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedOn, opt => opt.Ignore())
                 .ForMember(dest => dest.Budgets, opt => opt.Ignore())
-                .ForMember(dest => dest.SalaryEntries, opt => opt.Ignore());
-       }
+                .ForMember(dest => dest.SalaryEntries, opt => opt.Ignore())
+                .ForMember(dest => dest.AuditLogs, opt => opt.Ignore());
+        }
     }
 }

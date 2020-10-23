@@ -6,7 +6,6 @@ using Expressions;
 using Filtering.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -19,12 +18,12 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
         protected readonly IBudgetManagementContext Context;
         protected readonly IWhitelist Whitelist;
 
-        public BaseRepository(IBudgetManagementContext context)
+        protected BaseRepository(IBudgetManagementContext context)
         {
             Context = context;
         }
 
-        public BaseRepository(IBudgetManagementContext context, IWhitelist whitelist)
+        protected BaseRepository(IBudgetManagementContext context, IWhitelist whitelist)
         {
             Context = context;
             Whitelist = whitelist;
@@ -57,8 +56,14 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
         public TDomain Create(TDomain domain)
         {
             var entity = ToPersistence(domain);
-            entity = Context.Set<TEntity>().Add(entity);
 
+            if (entity.CreatedOn == default(DateTime))
+            {
+                entity.CreatedOn = DateTime.Now;
+            }
+
+            entity.UpdatedOn = entity.CreatedOn;
+            entity = Context.Set<TEntity>().Add(entity);
             Context.SaveChanges();
 
             return ToDomain(entity);
@@ -72,6 +77,8 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
             {
                 return null;
             }
+
+            entity.UpdatedOn = DateTime.Now;
 
             UpdateFields(entity, domain);
             Context.SaveChanges();
