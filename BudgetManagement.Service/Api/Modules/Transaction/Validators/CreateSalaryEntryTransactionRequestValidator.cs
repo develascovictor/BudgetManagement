@@ -11,6 +11,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Validators
             GetRequiredIntRule(nameof(CreateSalaryEntryTransactionRequest.BudgetId), "budgetId");
             GetRequiredMoneyRule(nameof(CreateSalaryEntryTransactionRequest.Amount), "amount");
             GetRequiredMoneyRule(nameof(CreateSalaryEntryTransactionRequest.Rate), "rate");
+            GetRequiredDateRule(nameof(CreateSalaryEntryTransactionRequest.Date), "date");
         }
     }
 }

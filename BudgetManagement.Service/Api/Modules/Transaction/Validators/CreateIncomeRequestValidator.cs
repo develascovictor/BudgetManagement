@@ -10,7 +10,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Validators
             GetRequiredIntRule(nameof(CreateIncomeRequest.TransactionId), "transactionId");
             GetRequiredMoneyRule(nameof(CreateIncomeRequest.Amount), "amount");
             GetRequiredMoneyRule(nameof(CreateIncomeRequest.Rate), "rate");
-            //TODO: Create validation for date (Validate if not Date.Min)
+            GetRequiredDateRule(nameof(CreateIncomeRequest.Date), "date");
         }
     }
 }

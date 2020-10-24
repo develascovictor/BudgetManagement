@@ -10,6 +10,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Validators
             GetRequiredIntRule(nameof(UpdateExpenseRequest.Id), "id");
             GetRequiredMoneyRule(nameof(UpdateExpenseRequest.Amount), "amount");
             GetRequiredMoneyRule(nameof(UpdateExpenseRequest.Rate), "rate");
+            GetRequiredDateRule(nameof(UpdateExpenseRequest.Date), "date");
         }
     }
 }

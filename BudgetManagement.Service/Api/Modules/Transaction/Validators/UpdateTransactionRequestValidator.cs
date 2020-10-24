@@ -11,6 +11,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Validators
             GetRequiredStringRule(nameof(UpdateTransactionRequest.Description), "description");
             GetInvalidStringRule(nameof(UpdateTransactionRequest.Description), "description", 50);
             GetInvalidStringRule(nameof(UpdateTransactionRequest.Notes), "notes", 500);
+            GetRequiredDateRule(nameof(UpdateTransactionRequest.Date), "date");
         }
     }
 }

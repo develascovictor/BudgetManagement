@@ -10,6 +10,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry.Validators
             GetRequiredIntRule(nameof(UpdateSalaryEntryRequest.Id), "id");
             GetRequiredMoneyRule(nameof(UpdateSalaryEntryRequest.Amount), "amount");
             GetRequiredMoneyRule(nameof(UpdateSalaryEntryRequest.Rate), "rate");
+            GetRequiredDateRule(nameof(UpdateSalaryEntryRequest.Date), "date");
         }
     }
 }

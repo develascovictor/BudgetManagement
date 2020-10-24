@@ -89,6 +89,16 @@ namespace BudgetManagement.Shared.FluentValidation
                 .Length(36).WithMessage(invalidMessage);
         }
 
+        protected IRuleBuilderOptions<T, DateTime> GetRequiredDateRule(string propertyName, string parameterName)
+        {
+            var returnExpression = ExpressionExtensions.CreateReturnExpression<T, DateTime>(propertyName, DefaultParameterName);
+            var invalidMessage = RequiredMessage(parameterName);
+
+            return RuleFor(returnExpression)
+                .Cascade(CascadeMode.Stop)
+                .Must(x => x > DateTime.MinValue).WithMessage(invalidMessage);
+        }
+
         protected IRuleBuilderOptions<T, int> GetInvalidIntRule(string propertyName, string parameterName)
         {
             var returnExpression = ExpressionExtensions.CreateReturnExpression<T, int>(propertyName, DefaultParameterName);

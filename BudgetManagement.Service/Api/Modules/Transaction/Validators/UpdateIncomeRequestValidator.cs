@@ -10,6 +10,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Validators
             GetRequiredIntRule(nameof(UpdateIncomeRequest.Id), "id");
             GetRequiredMoneyRule(nameof(UpdateIncomeRequest.Amount), "amount");
             GetRequiredMoneyRule(nameof(UpdateIncomeRequest.Rate), "rate");
+            GetRequiredDateRule(nameof(UpdateIncomeRequest.Date), "date");
         }
     }
 }
