@@ -12,6 +12,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry.Models
         public decimal Amount { get; private set; }
         public decimal Rate { get; private set; }
         public decimal Value { get; private set; }
+        public List<SalaryIncomeDto> Incomes { get; private set; }
         public IDictionary<string, string> Errors { get; private set; }
 
         public SalaryEntryDto()
@@ -27,6 +28,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry.Models
             decimal amount,
             decimal rate,
             decimal value,
+            List<SalaryIncomeDto> incomes = null,
             IDictionary<string, string> errors = null)
         {
             Id = id;
@@ -36,6 +38,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry.Models
             Rate = rate;
             Value = value;
 
+            Incomes = incomes ?? new List<SalaryIncomeDto>();
             Errors = errors;
         }
     }

@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="SqlServer\Interface\IEntity.cs" />
     <Compile Include="SqlServer\Extensions\Budget.cs" />
+    <Compile Include="SqlServer\Mapping\Profiles\SalaryIncomeProfile.cs" />
     <Compile Include="SqlServer\Mapping\Profiles\IncomeProfile.cs" />
     <Compile Include="SqlServer\Mapping\Profiles\ExpenseProfile.cs" />
     <Compile Include="SqlServer\Mapping\Profiles\UserProfile.cs" />

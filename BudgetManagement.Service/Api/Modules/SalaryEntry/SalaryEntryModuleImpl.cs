@@ -8,7 +8,6 @@ using BudgetManagement.Service.Api.Modules.SalaryEntry.Models;
 using BudgetManagement.Service.Api.Modules.SalaryEntry.Views;
 using BudgetManagement.Shared.Extensions;
 using BudgetManagement.Shared.Server.Api.Pagination;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +20,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry
 
         private static readonly List<Profile> Profiles = new List<Profile>
         {
+            new SalaryIncomeDtoProfile(),
             new SalaryEntryDtoProfile(),
             new CreateSalaryEntryRequestProfile(),
             new UpdateSalaryEntryRequestProfile()

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Entities\Base\BaseDomain.cs" />
     <Compile Include="Entities\Base\BaseDomainEventHandler.cs" />
+    <Compile Include="Entities\SalaryIncome.cs" />
     <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\Expense.cs" />
     <Compile Include="Entities\User.cs" />

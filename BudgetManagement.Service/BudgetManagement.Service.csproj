@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -169,8 +169,10 @@
     <Compile Include="Api\Modules\Budget\Models\BudgetDto.cs" />
     <Compile Include="Api\Modules\Budget\Validators\SearchBudgetsRequestValidator.cs" />
     <Compile Include="Api\Modules\Budget\Views\SearchBudgetsRequest.cs" />
+    <Compile Include="Api\Modules\SalaryEntry\Mapping\SalaryIncomeDtoProfile.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Mapping\UpdateSalaryEntryRequestProfile.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Mapping\CreateSalaryEntryRequestProfile.cs" />
+    <Compile Include="Api\Modules\SalaryEntry\Models\SalaryIncomeDto.cs" />
     <Compile Include="Api\Modules\SalaryEntry\SalaryEntryModule.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Interfaces\ISalaryEntryModuleImpl.cs" />
     <Compile Include="Api\Modules\SalaryEntry\Interfaces\ISalaryEntryModule.cs" />

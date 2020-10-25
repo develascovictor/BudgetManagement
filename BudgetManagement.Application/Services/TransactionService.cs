@@ -1,4 +1,4 @@
-﻿using BudgetManagement.Application.Interfaces;
+using BudgetManagement.Application.Interfaces;
 using BudgetManagement.Application.Models;
 using BudgetManagement.Domain.Entities;
 using BudgetManagement.Domain.Exceptions;
@@ -184,7 +184,7 @@ namespace BudgetManagement.Application.Services
             }
         }
 
-        private void ValidateDate(DateTime date, IReadOnlyCollection<Expense> expenses, IReadOnlyCollection<Income> incomes)
+        private static void ValidateDate(DateTime date, IReadOnlyCollection<Expense> expenses, IReadOnlyCollection<Income> incomes)
         {
             if (expenses.Any(x => x.Date.Date < date.Date))
             {

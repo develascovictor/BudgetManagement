@@ -1,6 +1,7 @@
 ﻿using BudgetManagement.Domain.Entities.Base;
 using BudgetManagement.Shared.Event;
 using System;
+using System.Collections.Generic;
 
 namespace BudgetManagement.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace BudgetManagement.Domain.Entities
         public decimal Amount { get; private set; }
         public decimal Rate { get; private set; }
         public decimal Value { get; private set; }
+        public List<SalaryIncome> Incomes { get; private set; }
 
         public SalaryEntry()
         {
@@ -24,7 +26,8 @@ namespace BudgetManagement.Domain.Entities
             decimal amount,
             decimal rate,
             DateTime createdOn,
-            DateTime updatedOn)
+            DateTime updatedOn,
+            List<SalaryIncome> incomes = null)
         {
             Id = id;
             UserId = userId;
@@ -34,6 +37,8 @@ namespace BudgetManagement.Domain.Entities
             Value = amount / rate;
             CreatedOn = createdOn;
             UpdatedOn = updatedOn;
+
+            Incomes = incomes ?? new List<SalaryIncome>();
         }
 
         public SalaryEntry UpdateDate(DateTime? date)

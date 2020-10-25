@@ -4,6 +4,7 @@ using BudgetManagement.Infrastructure.Whitelists;
 using BudgetManagement.Persistence.SqlServer;
 using BudgetManagement.Persistence.SqlServer.Mapping;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace BudgetManagement.Infrastructure.Repositories
@@ -16,7 +17,8 @@ namespace BudgetManagement.Infrastructure.Repositories
         }
 
         protected override IQueryable<SalaryEntry> Query =>
-            Context.SalaryEntries;
+            Context.SalaryEntries
+            .Include(x => x.Incomes.Select(y => y.Transaction.Budget));
 
         protected override Domain.Entities.SalaryEntry ToDomain(SalaryEntry entity) => EntityMapper.ToDomain(entity);
 
