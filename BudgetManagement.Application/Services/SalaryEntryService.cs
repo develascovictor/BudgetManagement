@@ -21,6 +21,12 @@ namespace BudgetManagement.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public SalaryEntry GetSalaryEntryById(int id)
+        {
+            var domain = _unitOfWork.SalaryEntryRepository.GetById(id);
+            return domain;
+        }
+
         public DataPage<SalaryEntry> SearchSalaryEntries(string filterOptions, string sortOptions, PageOptions pageOptions)
         {
             var domains = _unitOfWork.SalaryEntryRepository.Search(filterOptions, sortOptions, pageOptions.Index, pageOptions.Limit, out var total).ToList();

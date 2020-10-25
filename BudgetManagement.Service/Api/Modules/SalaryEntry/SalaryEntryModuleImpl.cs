@@ -43,6 +43,14 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry
             return await Task.FromResult($"Status: Salary Entry Healthy [{DateTime.UtcNow:O}]");
         }
 
+        public async Task<SalaryEntryDto> GetTransactionByIdAsync(GetSalaryEntryByIdRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await GetByIdAsync(() => _salaryEntryService.GetSalaryEntryById(request.Id), caller.Method, cancellationToken);
+
+            return dto;
+        }
+
         public async Task<Page<SalaryEntryDto>> SearchSalaryEntriesAsync(SearchSalaryEntriesRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();

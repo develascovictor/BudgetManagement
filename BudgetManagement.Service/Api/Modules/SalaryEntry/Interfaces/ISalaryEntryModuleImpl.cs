@@ -9,6 +9,7 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry.Interfaces
     public interface ISalaryEntryModuleImpl
     {
         Task<string> HealthCheckAsync();
+        Task<SalaryEntryDto> GetTransactionByIdAsync(GetSalaryEntryByIdRequest request, CancellationToken cancellationToken);
         Task<Page<SalaryEntryDto>> SearchSalaryEntriesAsync(SearchSalaryEntriesRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken);
         Task<SalaryEntryDto> CreateSalaryEntryAsync(CreateSalaryEntryRequest request, CancellationToken cancellationToken);
         Task<SalaryEntryDto> UpdateSalaryEntryAsync(UpdateSalaryEntryRequest request, CancellationToken cancellationToken);

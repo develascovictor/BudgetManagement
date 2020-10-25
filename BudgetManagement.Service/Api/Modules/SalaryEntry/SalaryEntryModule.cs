@@ -27,6 +27,49 @@ namespace BudgetManagement.Service.Api.Modules.SalaryEntry
             _moduleImpl = moduleImpl;
         }
 
+        public async Task<CommandResult<SalaryEntryDto>> GetSalaryEntryByIdAsync(GetSalaryEntryByIdRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<SalaryEntryDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<SalaryEntryDto>(parameters);
+            }
+
+            var validator = new GetSalaryEntryByIdRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<SalaryEntryDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.GetTransactionByIdAsync(request, cancellationToken);
+
+                if (dto == null)
+                {
+                    return CommandResult<SalaryEntryDto>.NotFound();
+                }
+
+                return CommandResult<SalaryEntryDto>.Ok(dto);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<SalaryEntryDto>(parameters);
+            }
+        }
+
         public async Task<CommandResult<string>> GetHealthAsync(CancellationToken cancellationToken)
         {
             var result = await _moduleImpl.HealthCheckAsync();

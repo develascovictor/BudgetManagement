@@ -43,7 +43,7 @@ namespace BudgetManagement.Service.Api.Modules.Budget
         public async Task<Page<BudgetDto>> SearchBudgetsAsync(SearchBudgetsRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
-            var pageDto = await SearchAsync((pageOptions) => _budgetService.SearchBudgets(request.Filter, request.Sort, pageOptions), paginationRequest, caller.Method, cancellationToken);
+            var pageDto = await SearchAsync(pageOptions => _budgetService.SearchBudgets(request.Filter, request.Sort, pageOptions), paginationRequest, caller.Method, cancellationToken);
 
             return pageDto;
         }
