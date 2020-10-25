@@ -20,14 +20,30 @@ namespace BudgetManagement.Client
         {
             InitializeComponent();
 
+            tbxFilter.KeyUp += (sender, e) =>
+            {
+                if (e.KeyCode != Keys.Enter)
+                {
+                    return;
+                }
+
+                Reload();
+                e.Handled = true;
+            };
+
             _budgetModule = new BudgetModule(new BudgetModuleImpl(new BudgetService(new UnitOfWork(new BudgetManagementEntities()))));
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Reload();
         }
 
         private async void Reload()
         {
             var request = new SearchBudgetsRequest
             {
-                Filter = null,
+                Filter = string.IsNullOrWhiteSpace(tbxFilter.Text) ? null : $"name=@{tbxFilter.Text.Trim()}",
                 Sort = null
             };
             var commandResult = await _budgetModule.SearchBudgetsAsync(request, default);
@@ -46,15 +62,15 @@ namespace BudgetManagement.Client
             tr.Show();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             Reload();
         }
 
-        private void btnAddSalaryEntry_Click(object sender, EventArgs e)
+        private void btnGoToSalaryEntries_Click(object sender, EventArgs e)
         {
-            var sef = new AddSalaryEntryForm();
-            sef.Show();
+            var se = new SalaryEntriesForm();
+            se.Show();
         }
     }
 }
