@@ -26,6 +26,22 @@ namespace BudgetManagement.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> GetSalaryEntryByIdAsync([FromUri] int id, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{id}";
+            Log.Info($"GetSalaryEntryByIdAsync - Url: {url}");
+
+            var request = new GetSalaryEntryByIdRequest
+            {
+                Id = id
+            };
+            var commandResult = await _salaryEntryModule.GetSalaryEntryByIdAsync(request, cancellationToken);
+
+            return GetResponse(commandResult);
+        }
+
+        [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> SearchSalaryEntriesAsync(CancellationToken cancellationToken)
         {
