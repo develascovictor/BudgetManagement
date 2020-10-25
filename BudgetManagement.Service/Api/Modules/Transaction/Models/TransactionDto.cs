@@ -14,6 +14,8 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Models
         public string Notes { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
+        public List<ExpenseDto> Expenses { get; private set; }
+        public List<IncomeDto> Incomes { get; private set; }
         public IDictionary<string, string> Errors { get; private set; }
 
         public TransactionDto()
@@ -31,6 +33,8 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Models
             string notes,
             DateTime createdOn,
             DateTime updatedOn,
+            List<ExpenseDto> expenses = null,
+            List<IncomeDto> incomes = null,
             IDictionary<string, string> errors = null)
         {
             Id = id;
@@ -42,6 +46,8 @@ namespace BudgetManagement.Service.Api.Modules.Transaction.Models
             CreatedOn = createdOn;
             UpdatedOn = updatedOn;
 
+            Expenses = expenses ?? new List<ExpenseDto>();
+            Incomes = incomes ?? new List<IncomeDto>();
             Errors = errors;
         }
     }

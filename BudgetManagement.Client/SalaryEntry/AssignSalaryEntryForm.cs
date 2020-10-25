@@ -9,11 +9,13 @@ using BudgetManagement.Service.Api.Modules.SalaryEntry;
 using BudgetManagement.Service.Api.Modules.SalaryEntry.Interfaces;
 using BudgetManagement.Service.Api.Modules.SalaryEntry.Models;
 using BudgetManagement.Service.Api.Modules.SalaryEntry.Views;
+using BudgetManagement.Service.Api.Modules.Transaction;
+using BudgetManagement.Service.Api.Modules.Transaction.Interfaces;
+using BudgetManagement.Service.Api.Modules.Transaction.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BudgetManagement.Client.SalaryEntry
@@ -26,6 +28,7 @@ namespace BudgetManagement.Client.SalaryEntry
         private readonly int _salaryEntryId;
         private readonly IBudgetModule _budgetModule;
         private readonly ISalaryEntryModule _salaryEntryModule;
+        private readonly ITransactionModule _transactionModule;
 
         public AssignSalaryEntryForm(int salaryEntryId)
         {
@@ -33,22 +36,25 @@ namespace BudgetManagement.Client.SalaryEntry
 
             _salaryEntryId = salaryEntryId;
 
-            var unitOfWork = new UnitOfWork(new BudgetManagementEntities());
+            var unitOfWork = new UnitOfWork(new BudgetManagementEntities(true));
             _budgetModule = new BudgetModule(new BudgetModuleImpl(new BudgetService(unitOfWork)));
             _salaryEntryModule = new SalaryEntryModule(new SalaryEntryModuleImpl(new SalaryEntryService(unitOfWork)));
+            _transactionModule = new TransactionModule(new TransactionModuleImpl(new TransactionService(unitOfWork)));
         }
 
-        private async void AssignSalaryEntryForm_Load(object sender, EventArgs e)
+        private void AssignSalaryEntryForm_Load(object sender, EventArgs e)
         {
-            await GetBudgets();
-            await GetSalaryEntry();
+            GetBudgets();
+            GetSalaryEntry();
+        }
 
+        private void RefreshAvailableLabel()
+        {
             var used = _salaryEntry.Incomes.Sum(x => x.Value);
-
             lblAvailable.Text = $@"${(_salaryEntry.Value - used)}";
         }
 
-        private async Task GetBudgets()
+        private async void GetBudgets()
         {
             var request = new SearchBudgetsRequest
             {
@@ -60,10 +66,14 @@ namespace BudgetManagement.Client.SalaryEntry
             if (commandResult.StatusCode == HttpStatusCode.OK)
             {
                 _budgets = commandResult.Result.Resources;
+
+                cbxBudgets.DataSource = _budgets;
+                cbxBudgets.DisplayMember = nameof(BudgetDto.Name);
+                cbxBudgets.ValueMember = nameof(BudgetDto.Id);
             }
         }
 
-        private async Task GetSalaryEntry()
+        private async void GetSalaryEntry()
         {
             var request = new GetSalaryEntryByIdRequest
             {
@@ -74,17 +84,46 @@ namespace BudgetManagement.Client.SalaryEntry
             if (commandResult.StatusCode == HttpStatusCode.OK)
             {
                 _salaryEntry = commandResult.Result;
+                RefreshAvailableLabel();
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            
+            Close();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private async void btnAdd_Click(object sender, EventArgs e)
         {
+            var request = new CreateSalaryEntryTransactionRequest
+            {
+                SalaryEntryId = _salaryEntryId,
+                BudgetId = (int) cbxBudgets.SelectedValue,
+                Date = _salaryEntry.Date,
+                Amount = numericValue.Value,
+                Rate = _salaryEntry.Rate
+            };
+            var commandResult = await _transactionModule.CreateTransactionAsync(request, default);
 
+            if (commandResult.StatusCode == HttpStatusCode.OK)
+            {
+                //var transaction = commandResult.Result.;
+                //_salaryEntry.Incomes.Add(new SalaryIncomeDto
+                //{
+                //    Id = 0,
+                //    TransactionId = 0,
+                //    SalaryEntryId = null,
+                //    Date = default,
+                //    Amount = 0,
+                //    Rate = 0,
+                //    Value = 0,
+                //    TransactionDescription = null,
+                //    BudgetId = 0,
+                //    BudgetName = null
+                //});
+
+                RefreshAvailableLabel();
+            }
         }
     }
 }
