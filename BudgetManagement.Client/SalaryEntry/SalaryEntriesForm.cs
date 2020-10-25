@@ -46,5 +46,12 @@ namespace BudgetManagement.Client.SalaryEntry
             var sef = new AddSalaryEntryForm();
             sef.Show();
         }
+
+        private void gridSalaryEntries_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var salaryEntryId = (int)gridSalaryEntries.Rows[e.RowIndex].Cells[0].Value;
+            var ase = new AssignSalaryEntryForm(salaryEntryId);
+            ase.Show();
+        }
     }
 }

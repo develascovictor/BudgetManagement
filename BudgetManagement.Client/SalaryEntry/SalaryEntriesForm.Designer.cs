@@ -40,6 +40,7 @@
             this.gridSalaryEntries.Name = "gridSalaryEntries";
             this.gridSalaryEntries.Size = new System.Drawing.Size(776, 367);
             this.gridSalaryEntries.TabIndex = 0;
+            this.gridSalaryEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridSalaryEntries_CellContentClick);
             // 
             // btnAddSalaryEntry
             // 
