@@ -44,11 +44,6 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             _transactionService = transactionService;
         }
 
-        public async Task<string> HealthCheckAsync()
-        {
-            return await Task.FromResult($"Status: Transaction Healthy [{DateTime.UtcNow:O}]");
-        }
-
         public async Task<TransactionDto> GetTransactionByIdAsync(GetTransactionByIdRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();

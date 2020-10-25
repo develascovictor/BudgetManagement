@@ -35,11 +35,6 @@ namespace BudgetManagement.Service.Api.Modules.Budget
             _budgetService = budgetService;
         }
 
-        public async Task<string> HealthCheckAsync()
-        {
-            return await Task.FromResult($"Status: Budget Healthy [{DateTime.UtcNow:O}]");
-        }
-
         public async Task<Page<BudgetDto>> SearchBudgetsAsync(SearchBudgetsRequest request, PaginationRequest paginationRequest, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();

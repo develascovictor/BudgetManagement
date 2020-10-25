@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BudgetManagement.Domain.Entities.Base;
 using BudgetManagement.Service.Api.Utilities;
+using BudgetManagement.Shared.Extensions;
 using BudgetManagement.Shared.Pagination.Models;
 using BudgetManagement.Shared.Server.Api.Pagination;
 using log4net;
@@ -52,14 +53,33 @@ namespace BudgetManagement.Service.Api.Modules.Base
             MapperInstance = new Mapper(mapperConfiguration);
         }
 
-        public async Task<IReadOnlyCollection<TListDto>> GetAsync(Func<IReadOnlyCollection<TDomain>> func, string className, CancellationToken cancellationToken)
+        public async Task<string> HealthCheckAsync()
+        {
+            var caller = CallerExtensions.LogCaller();
+
+            var timer = new Stopwatch();
+            timer.Start();
+
+            try
+            {
+                return await Task.FromResult($"Status: {ClassName} Healthy [{DateTime.Now:O}]");
+            }
+
+            finally
+            {
+                timer.Stop();
+                Log.Debug(LogMessage(caller.Method, timer));
+            }
+        }
+
+        public async Task<IReadOnlyCollection<TListDto>> GetAsync(Func<IReadOnlyCollection<TDomain>> func, string methodName, CancellationToken cancellationToken)
         {
             var timer = new Stopwatch();
             timer.Start();
 
             try
             {
-                var collection = await Task.Run(() => func(), cancellationToken);
+                var collection = await Task.Run(func, cancellationToken);
                 var resources = MapperInstance.Map<IReadOnlyCollection<TDomain>, IReadOnlyCollection<TListDto>>(collection).ToList();
 
                 return resources;
@@ -68,11 +88,11 @@ namespace BudgetManagement.Service.Api.Modules.Base
             finally
             {
                 timer.Stop();
-                Log.Debug(LogMessage(className, timer));
+                Log.Debug(LogMessage(methodName, timer));
             }
         }
 
-        public async Task<Page<TListDto>> SearchAsync(Func<PageOptions, DataPage<TDomain>> func, PaginationRequest paginationRequest, string className, CancellationToken cancellationToken)
+        public async Task<Page<TListDto>> SearchAsync(Func<PageOptions, DataPage<TDomain>> func, PaginationRequest paginationRequest, string methodName, CancellationToken cancellationToken)
         {
             var timer = new Stopwatch();
             timer.Start();
@@ -98,11 +118,11 @@ namespace BudgetManagement.Service.Api.Modules.Base
             finally
             {
                 timer.Stop();
-                Log.Debug(LogMessage(className, timer));
+                Log.Debug(LogMessage(methodName, timer));
             }
         }
 
-        public async Task<TSingleDto> GetByIdAsync(Func<TDomain> func, string className, CancellationToken cancellationToken)
+        public async Task<TSingleDto> GetByIdAsync(Func<TDomain> func, string methodName, CancellationToken cancellationToken)
         {
             var timer = new Stopwatch();
             timer.Start();
@@ -118,7 +138,7 @@ namespace BudgetManagement.Service.Api.Modules.Base
             finally
             {
                 timer.Stop();
-                Log.Debug(LogMessage(className, timer));
+                Log.Debug(LogMessage(methodName, timer));
             }
         }
 

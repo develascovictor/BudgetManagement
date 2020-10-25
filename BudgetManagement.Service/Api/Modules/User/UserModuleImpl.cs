@@ -34,11 +34,6 @@ namespace BudgetManagement.Service.Api.Modules.User
             _userService = userService;
         }
 
-        public async Task<string> HealthCheckAsync()
-        {
-            return await Task.FromResult($"Status: User Healthy [{DateTime.UtcNow:O}]");
-        }
-
         public async Task<UserDto> GetUserByIdAsync(GetUserByIdRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();

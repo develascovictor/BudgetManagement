@@ -34,11 +34,6 @@ namespace BudgetManagement.Service.Api.Modules.TransactionType
             _transactionTypeService = transactionTypeService;
         }
 
-        public async Task<string> HealthCheckAsync()
-        {
-            return await Task.FromResult($"Status: Transaction Type Healthy [{DateTime.UtcNow:O}]");
-        }
-
         public async Task<IReadOnlyCollection<TransactionTypeDto>> GetTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
