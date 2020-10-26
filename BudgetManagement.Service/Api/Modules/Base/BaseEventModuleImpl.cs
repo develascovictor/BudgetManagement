@@ -35,7 +35,7 @@ namespace BudgetManagement.Service.Api.Modules.Base
             _eventDispatcher = eventDispatcher;
         }
 
-        protected async Task<TSingleDto> RunRequestAndDispatchEventAsync(Func<TDomain> func, string className, CancellationToken cancellationToken)
+        protected async Task<TSingleDto> RunRequestAndDispatchEventAsync(Func<TDomain> func, string methodName, CancellationToken cancellationToken)
         {
             var timer = new Stopwatch();
             timer.Start();
@@ -48,16 +48,16 @@ namespace BudgetManagement.Service.Api.Modules.Base
             finally
             {
                 timer.Stop();
-                Log.Debug(LogMessage(className, timer));
+                Log.Debug(LogMessage(methodName, timer));
             }
         }
 
-        protected async Task<TSingleDto> RunRequestAndDispatchEventAsync<TRequest, TDefinition>(Func<TDefinition, TDomain> func, TRequest request, string className, CancellationToken cancellationToken)
+        protected async Task<TSingleDto> RunRequestAndDispatchEventAsync<TRequest, TDefinition>(Func<TDefinition, TDomain> func, TRequest request, string methodName, CancellationToken cancellationToken)
         {
-            return await RunAlternateRequestAndDispatchEventAsync<TRequest, TDefinition, TSingleDto, TDomain>(func, request, className, cancellationToken);
+            return await RunAlternateRequestAndDispatchEventAsync<TRequest, TDefinition, TSingleDto, TDomain>(func, request, methodName, cancellationToken);
         }
 
-        protected async Task<TAlternateSingleDto> RunAlternateRequestAndDispatchEventAsync<TRequest, TDefinition, TAlternateSingleDto, TAlternateDomain>(Func<TDefinition, TAlternateDomain> func, TRequest request, string className, CancellationToken cancellationToken)
+        protected async Task<TAlternateSingleDto> RunAlternateRequestAndDispatchEventAsync<TRequest, TDefinition, TAlternateSingleDto, TAlternateDomain>(Func<TDefinition, TAlternateDomain> func, TRequest request, string methodName, CancellationToken cancellationToken)
             where TAlternateDomain : BaseDomainEventHandler<TId>
             where TAlternateSingleDto : class
         {
@@ -73,7 +73,7 @@ namespace BudgetManagement.Service.Api.Modules.Base
             finally
             {
                 timer.Stop();
-                Log.Debug(LogMessage(className, timer));
+                Log.Debug(LogMessage(methodName, timer));
             }
         }
 
@@ -102,6 +102,23 @@ namespace BudgetManagement.Service.Api.Modules.Base
             }
 
             return MapperInstance.Map<TAlternateDomain, TAlternateSingleDto>(domain);
+        }
+
+        protected async Task RunAction(Action func, string methodName, CancellationToken cancellationToken)
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+
+            try
+            {
+                await Task.Run(func, cancellationToken);
+            }
+
+            finally
+            {
+                timer.Stop();
+                Log.Debug(LogMessage(methodName, timer));
+            }
         }
     }
 }

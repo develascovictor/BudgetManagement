@@ -9,5 +9,6 @@ namespace BudgetManagement.Domain.Repositories
         IEnumerable<Transaction> SearchByBudgetId(int budgetId, string filterOptions, string sortOptions, int index, int limit, out long total);
         Transaction Create(Transaction domain);
         Transaction Update(Transaction domain);
+        void Delete(Transaction domain);
     }
 }

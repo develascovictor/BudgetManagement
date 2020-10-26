@@ -9,5 +9,6 @@ namespace BudgetManagement.Domain.Repositories
         Income GetById(int id);
         Income Create(Income domain);
         Income Update(Income domain);
+        void Delete(IEnumerable<Income> domains);
     }
 }

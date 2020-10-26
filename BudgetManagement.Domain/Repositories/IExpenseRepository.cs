@@ -1,4 +1,5 @@
-﻿using BudgetManagement.Domain.Entities;
+﻿using System.Collections.Generic;
+using BudgetManagement.Domain.Entities;
 
 namespace BudgetManagement.Domain.Repositories
 {
@@ -7,5 +8,6 @@ namespace BudgetManagement.Domain.Repositories
         Expense GetById(int id);
         Expense Create(Expense domain);
         Expense Update(Expense domain);
+        void Delete(IEnumerable<Expense> domains);
     }
 }

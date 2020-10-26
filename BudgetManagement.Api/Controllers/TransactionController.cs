@@ -87,6 +87,17 @@ namespace BudgetManagement.Api.Controllers
             return GetResponse(commandResult);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> DeleteTransactionAsync([FromUri] int id, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{id}";
+            Log.Info($"DeleteTransactionAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.DeleteTransactionAsync(new DeleteTransactionRequest { Id = id }, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
         [HttpPost]
         [Route("{id}/expense")]
         public async Task<IHttpActionResult> CreateExpenseAsync([FromUri] int id, [FromBody] CreateExpenseRequest request, CancellationToken cancellationToken)

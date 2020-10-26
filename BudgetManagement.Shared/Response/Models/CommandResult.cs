@@ -33,6 +33,11 @@ namespace BudgetManagement.Shared.Response.Models
             return new CommandResult<T>(HttpStatusCode.OK, result);
         }
 
+        public static CommandResult<T> Created(T result)
+        {
+            return new CommandResult<T>(HttpStatusCode.Created, result);
+        }
+
         public static CommandResult<T> NotFound()
         {
             return new CommandResult<T>(HttpStatusCode.NotFound);

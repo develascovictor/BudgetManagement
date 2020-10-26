@@ -213,6 +213,7 @@
     <Compile Include="Api\Modules\Transaction\TransactionModule.cs" />
     <Compile Include="Api\Modules\Transaction\TransactionModuleImpl.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\CreateSalaryEntryTransactionRequestValidator.cs" />
+    <Compile Include="Api\Modules\Transaction\Validators\DeleteTransactionRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateIncomeRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateExpenseRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateTransactionRequestValidator.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Api\Modules\Transaction\Views\CreateSalaryEntryTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateIncomeRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateExpenseRequest.cs" />
+    <Compile Include="Api\Modules\Transaction\Views\DeleteTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\CreateTransactionRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\CreateIncomeRequest.cs" />

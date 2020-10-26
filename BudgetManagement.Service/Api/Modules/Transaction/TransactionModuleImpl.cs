@@ -84,6 +84,12 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             return dto;
         }
 
+        public async Task DeleteTransactionAsync(DeleteTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            await RunAction(() => _transactionService.DeleteTransaction(request.Id), caller.Method, cancellationToken);
+        }
+
         public async Task<ExpenseDto> CreateExpenseAsync(CreateExpenseRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();

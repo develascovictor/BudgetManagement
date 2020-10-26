@@ -86,6 +86,34 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
             return ToDomain(entity);
         }
 
+        public void Delete(TDomain domain)
+        {
+            var entity = Query.FirstOrDefault(x => x.Id == domain.Id);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            Context.Set<TEntity>().Remove(entity);
+            Context.SaveChanges();
+        }
+
+        public void Delete(IEnumerable<TDomain> domains)
+        {
+            var serializedDomains = domains.ToList();
+            var ids = serializedDomains.Select(y => y.Id);
+            var entities = Query.Where(x => ids.Contains(x.Id));
+
+            if (entities.Count() != serializedDomains.Count)
+            {
+                return;
+            }
+
+            Context.Set<TEntity>().RemoveRange(entities);
+            Context.SaveChanges();
+        }
+
         protected IEnumerable<TDomain> Search(Expression<Func<TEntity, bool>> baseExpression, string filterOptions, string sortOptions, int index, int limit, out long total)
         {
             var filterExpression = FilterOptionExtensions.GetFilterExpression<TEntity>(filterOptions, Whitelist?.Whitelist);

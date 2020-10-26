@@ -155,6 +155,29 @@ namespace BudgetManagement.Application.Services
             return updatedTransaction;
         }
 
+        public void DeleteTransaction(int id)
+        {
+            var transaction = _unitOfWork.TransactionRepository.GetById(id);
+
+            if (transaction == null)
+            {
+                throw new TransactionNotFoundException(id);
+            }
+
+            if (transaction.Expenses.Any())
+            {
+                _unitOfWork.ExpenseRepository.Delete(transaction.Expenses);
+            }
+
+            if (transaction.Incomes.Any())
+            {
+                _unitOfWork.IncomeRepository.Delete(transaction.Incomes);
+            }
+
+            _unitOfWork.TransactionRepository.Delete(transaction);
+            _unitOfWork.SaveChanges();
+        }
+
         private void ValidateBudgetAndTransactionTypeId(int budgetId, int? transactionTypeId)
         {
             var budget = _unitOfWork.BudgetRepository.GetById(budgetId);
@@ -184,7 +207,7 @@ namespace BudgetManagement.Application.Services
             }
         }
 
-        private static void ValidateDate(DateTime date, IReadOnlyCollection<Expense> expenses, IReadOnlyCollection<Income> incomes)
+        private static void ValidateDate(DateTime date, IEnumerable<Expense> expenses, IEnumerable<Income> incomes)
         {
             if (expenses.Any(x => x.Date.Date < date.Date))
             {

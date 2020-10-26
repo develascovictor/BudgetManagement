@@ -230,7 +230,7 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
                     return ExceptionExtensions.GetBadResponse<TransactionDto>(dto.Errors);
                 }
 
-                return CommandResult<TransactionDto>.Ok(dto);
+                return CommandResult<TransactionDto>.Created(dto);
             }
 
             catch (DomainException domainException)
@@ -285,6 +285,49 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
                 }
 
                 return CommandResult<TransactionDto>.Ok(dto);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<TransactionDto>(parameters);
+            }
+        }
+
+        public async Task<CommandResult<TransactionDto>> DeleteTransactionAsync(DeleteTransactionRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<TransactionDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            var validator = new DeleteTransactionRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<TransactionDto>(parameters);
+            }
+
+            try
+            {
+                await _moduleImpl.DeleteTransactionAsync(request, cancellationToken);
+                return CommandResult<TransactionDto>.Ok(null);
             }
 
             catch (DomainException domainException)
