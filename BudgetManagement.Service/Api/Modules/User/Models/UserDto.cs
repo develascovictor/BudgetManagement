@@ -6,6 +6,7 @@ namespace BudgetManagement.Service.Api.Modules.User.Models
     {
         public int Id { get; private set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public bool Active { get; set; }
 
         public UserDto()
@@ -17,10 +18,12 @@ namespace BudgetManagement.Service.Api.Modules.User.Models
         public UserDto(
             int id,
             string name,
+            string userName,
             bool active)
         {
             Id = id;
-            Name = name;;
+            Name = name;
+            UserName = userName;
             Active = active;
         }
     }

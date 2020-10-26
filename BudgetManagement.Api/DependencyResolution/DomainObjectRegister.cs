@@ -14,6 +14,8 @@ using BudgetManagement.Service.Api.Modules.Transaction;
 using BudgetManagement.Service.Api.Modules.Transaction.Interfaces;
 using BudgetManagement.Service.Api.Modules.TransactionType;
 using BudgetManagement.Service.Api.Modules.TransactionType.Interfaces;
+using BudgetManagement.Service.Api.Modules.User;
+using BudgetManagement.Service.Api.Modules.User.Interfaces;
 
 namespace BudgetManagement.Api.DependencyResolution
 {
@@ -45,18 +47,21 @@ namespace BudgetManagement.Api.DependencyResolution
             builder.RegisterType<SalaryEntryService>().As<ISalaryEntryService>();
             builder.RegisterType<TransactionService>().As<ITransactionService>();
             builder.RegisterType<TransactionTypeService>().As<ITransactionTypeService>();
+            builder.RegisterType<UserService>().As<IUserService>();
 
             // Service layer module implementation registrations (ALPHABETICAL)
             builder.RegisterType<BudgetModuleImpl>().As<IBudgetModuleImpl>();
             builder.RegisterType<SalaryEntryModuleImpl>().As<ISalaryEntryModuleImpl>();
             builder.RegisterType<TransactionModuleImpl>().As<ITransactionModuleImpl>();
             builder.RegisterType<TransactionTypeModuleImpl>().As<ITransactionTypeModuleImpl>();
+            builder.RegisterType<UserModuleImpl>().As<IUserModuleImpl>();
 
             // Service layer module registrations (ALPHABETICAL)
             builder.RegisterType<BudgetModule>().As<IBudgetModule>();
             builder.RegisterType<SalaryEntryModule>().As<ISalaryEntryModule>();
             builder.RegisterType<TransactionModule>().As<ITransactionModule>();
             builder.RegisterType<TransactionTypeModule>().As<ITransactionTypeModule>();
+            builder.RegisterType<UserModule>().As<IUserModule>();
         }
     }
 }
