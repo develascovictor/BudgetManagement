@@ -213,6 +213,8 @@
     <Compile Include="Api\Modules\Transaction\TransactionModule.cs" />
     <Compile Include="Api\Modules\Transaction\TransactionModuleImpl.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\CreateSalaryEntryTransactionRequestValidator.cs" />
+    <Compile Include="Api\Modules\Transaction\Validators\DeleteIncomeRequestValidator.cs" />
+    <Compile Include="Api\Modules\Transaction\Validators\DeleteExpenseRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\DeleteTransactionRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateIncomeRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\UpdateExpenseRequestValidator.cs" />
@@ -223,6 +225,8 @@
     <Compile Include="Api\Modules\Transaction\Validators\GetTransactionByIdRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Validators\SearchTransactionsByBudgetIdRequestValidator.cs" />
     <Compile Include="Api\Modules\Transaction\Views\CreateSalaryEntryTransactionRequest.cs" />
+    <Compile Include="Api\Modules\Transaction\Views\DeleteIncomeRequest.cs" />
+    <Compile Include="Api\Modules\Transaction\Views\DeleteExpenseRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateIncomeRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\UpdateExpenseRequest.cs" />
     <Compile Include="Api\Modules\Transaction\Views\DeleteTransactionRequest.cs" />

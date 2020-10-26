@@ -14,7 +14,9 @@ namespace BudgetManagement.Application.Interfaces
         void DeleteTransaction(int id);
         Expense CreateExpense(ExpenseCreateDefinition expenseCreateDefinition);
         Expense UpdateExpense(int id, ExpenseUpdateDefinition expenseUpdateDefinition);
+        void DeleteExpense(int id);
         Income CreateIncome(IncomeCreateDefinition incomeCreateDefinition);
         Income UpdateIncome(int id, IncomeUpdateDefinition incomeUpdateDefinition);
+        void DeleteIncome(int id);
     }
 }

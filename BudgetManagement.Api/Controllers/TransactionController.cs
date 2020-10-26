@@ -99,10 +99,10 @@ namespace BudgetManagement.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/expense")]
-        public async Task<IHttpActionResult> CreateExpenseAsync([FromUri] int id, [FromBody] CreateExpenseRequest request, CancellationToken cancellationToken)
+        [Route("{transactionId}/expense")]
+        public async Task<IHttpActionResult> CreateExpenseAsync([FromUri] int transactionId, [FromBody] CreateExpenseRequest request, CancellationToken cancellationToken)
         {
-            var url = $"{BaseUrl}/{id}/expense";
+            var url = $"{BaseUrl}/{transactionId}/expense";
             Log.Info($"CreateExpenseAsync - Url: {url}");
 
             var commandResult = await _transactionModule.CreateExpenseAsync(request, cancellationToken);
@@ -110,21 +110,32 @@ namespace BudgetManagement.Api.Controllers
         }
 
         [HttpPatch]
-        [Route("{id}/expense")]
-        public async Task<IHttpActionResult> UpdateExpenseAsync([FromUri] int id, [FromBody] UpdateExpenseRequest request, CancellationToken cancellationToken)
+        [Route("{transactionId}/expense/{id}")]
+        public async Task<IHttpActionResult> UpdateExpenseAsync([FromUri] int transactionId, [FromUri] int id, [FromBody] UpdateExpenseRequest request, CancellationToken cancellationToken)
         {
-            var url = $"{BaseUrl}/{id}/expense";
+            var url = $"{BaseUrl}/{transactionId}/expense/{id}";
             Log.Info($"UpdateExpenseAsync - Url: {url}");
 
             var commandResult = await _transactionModule.UpdateExpenseAsync(request, cancellationToken);
             return GetResponse(commandResult);
         }
 
-        [HttpPost]
-        [Route("{id}/income")]
-        public async Task<IHttpActionResult> CreateIncomeAsync([FromUri] int id, [FromBody] CreateIncomeRequest request, CancellationToken cancellationToken)
+        [HttpDelete]
+        [Route("{transactionId}/expense/{id}")]
+        public async Task<IHttpActionResult> DeleteExpenseAsync([FromUri] int transactionId, [FromUri] int id, CancellationToken cancellationToken)
         {
-            var url = $"{BaseUrl}/{id}/income";
+            var url = $"{BaseUrl}/{transactionId}/expense/{id}";
+            Log.Info($"DeleteExpenseAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.DeleteExpenseAsync(new DeleteExpenseRequest { Id = id }, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
+        [HttpPost]
+        [Route("{transactionId}/income")]
+        public async Task<IHttpActionResult> CreateIncomeAsync([FromUri] int transactionId, [FromBody] CreateIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{transactionId}/income";
             Log.Info($"CreateIncomeAsync - Url: {url}");
 
             var commandResult = await _transactionModule.CreateIncomeAsync(request, cancellationToken);
@@ -132,13 +143,25 @@ namespace BudgetManagement.Api.Controllers
         }
 
         [HttpPatch]
-        [Route("{id}/income")]
-        public async Task<IHttpActionResult> UpdateIncomeAsync([FromUri] int id, [FromBody] UpdateIncomeRequest request, CancellationToken cancellationToken)
+        [Route("{transactionId}/income/{id}")]
+        public async Task<IHttpActionResult> UpdateIncomeAsync([FromUri] int transactionId, [FromUri] int id, [FromBody] UpdateIncomeRequest request, CancellationToken cancellationToken)
         {
-            var url = $"{BaseUrl}/{id}/income";
+            var url = $"{BaseUrl}/{transactionId}/income/{id}";
             Log.Info($"UpdateIncomeAsync - Url: {url}");
 
             var commandResult = await _transactionModule.UpdateIncomeAsync(request, cancellationToken);
+            return GetResponse(commandResult);
+        }
+
+        //TODO: Create logic to validate if transactionid matches the id it sends as well (if income or expense belongs to transaction)
+        [HttpDelete]
+        [Route("{transactionId}/income/{id}")]
+        public async Task<IHttpActionResult> DeleteIncomeAsync([FromUri] int transactionId, [FromUri] int id, CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{transactionId}/income/{id}";
+            Log.Info($"DeleteIncomeAsync - Url: {url}");
+
+            var commandResult = await _transactionModule.DeleteIncomeAsync(new DeleteIncomeRequest { Id = id }, cancellationToken);
             return GetResponse(commandResult);
         }
     }

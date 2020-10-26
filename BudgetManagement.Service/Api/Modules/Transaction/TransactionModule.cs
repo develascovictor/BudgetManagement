@@ -450,6 +450,49 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             }
         }
 
+        public async Task<CommandResult<ExpenseDto>> DeleteExpenseAsync(DeleteExpenseRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<ExpenseDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            var validator = new DeleteExpenseRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            try
+            {
+                await _moduleImpl.DeleteExpenseAsync(request, cancellationToken);
+                return CommandResult<ExpenseDto>.Ok(null);
+            }
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<ExpenseDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<ExpenseDto>(parameters);
+            }
+        }
+
         public async Task<CommandResult<IncomeDto>> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken)
         {
             var parameters = new { request, cancellationToken };
@@ -544,6 +587,51 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
                 }
 
                 return CommandResult<IncomeDto>.Ok(dto);
+            }
+
+            //TODO: Create logic to Catch Not Found Exception so we return NotFound
+
+            catch (DomainException domainException)
+            {
+                //TODO: Make sure error code is displayed
+                return domainException.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<IncomeDto>(parameters);
+            }
+        }
+
+        public async Task<CommandResult<IncomeDto>> DeleteIncomeAsync(DeleteIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<IncomeDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            var validator = new DeleteIncomeRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<IncomeDto>(parameters);
+            }
+
+            try
+            {
+                await _moduleImpl.DeleteIncomeAsync(request, cancellationToken);
+                return CommandResult<IncomeDto>.Ok(null);
             }
 
             catch (DomainException domainException)

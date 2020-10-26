@@ -275,6 +275,19 @@ namespace BudgetManagement.Application.Services
             return updatedExpense;
         }
 
+        public void DeleteExpense(int id)
+        {
+            var expense = _unitOfWork.ExpenseRepository.GetById(id);
+
+            if (expense == null)
+            {
+                throw new ExpenseNotFoundException(id);
+            }
+
+            _unitOfWork.ExpenseRepository.Delete(expense);
+            _unitOfWork.SaveChanges();
+        }
+
         public Income CreateIncome(IncomeCreateDefinition incomeCreateDefinition)
         {
             var transaction = _unitOfWork.TransactionRepository.GetById(incomeCreateDefinition.TransactionId);
@@ -329,6 +342,21 @@ namespace BudgetManagement.Application.Services
             _unitOfWork.SaveChanges();
 
             return updatedIncome;
+        }
+
+        public void DeleteIncome(int id)
+        {
+            var income = _unitOfWork.IncomeRepository.GetById(id);
+
+            if (income == null)
+            {
+                throw new IncomeNotFoundException(id);
+            }
+
+            //TODO: Add validation if transaction does not contain an income with salary entry ID
+
+            _unitOfWork.IncomeRepository.Delete(income);
+            _unitOfWork.SaveChanges();
         }
     }
 }

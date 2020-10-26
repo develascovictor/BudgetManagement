@@ -8,7 +8,6 @@ using BudgetManagement.Service.Api.Modules.Transaction.Models;
 using BudgetManagement.Service.Api.Modules.Transaction.Views;
 using BudgetManagement.Shared.Extensions;
 using BudgetManagement.Shared.Server.Api.Pagination;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -106,6 +105,12 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             return dto;
         }
 
+        public async Task DeleteExpenseAsync(DeleteExpenseRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            await RunAction(() => _transactionService.DeleteExpense(request.Id), caller.Method, cancellationToken);
+        }
+
         public async Task<IncomeDto> CreateIncomeAsync(CreateIncomeRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
@@ -120,6 +125,12 @@ namespace BudgetManagement.Service.Api.Modules.Transaction
             var dto = await RunAlternateRequestAndDispatchEventAsync<UpdateIncomeRequest, IncomeUpdateDefinition, IncomeDto, Domain.Entities.Income>(x => _transactionService.UpdateIncome(request.Id, x), request, caller.Method, cancellationToken);
 
             return dto;
+        }
+
+        public async Task DeleteIncomeAsync(DeleteIncomeRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            await RunAction(() => _transactionService.DeleteIncome(request.Id), caller.Method, cancellationToken);
         }
     }
 }
