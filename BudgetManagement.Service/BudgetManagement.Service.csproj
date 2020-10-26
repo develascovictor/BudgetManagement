@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -242,7 +242,9 @@
     <Compile Include="Api\Modules\User\Models\UserDto.cs" />
     <Compile Include="Api\Modules\User\UserModule.cs" />
     <Compile Include="Api\Modules\User\UserModuleImpl.cs" />
+    <Compile Include="Api\Modules\User\Validators\LoginRequestValidator.cs" />
     <Compile Include="Api\Modules\User\Validators\GetUserByIdRequestValidator.cs" />
+    <Compile Include="Api\Modules\User\Views\LoginRequest.cs" />
     <Compile Include="Api\Modules\User\Views\GetUserByIdRequest.cs" />
     <Compile Include="Api\Utilities\PaginationResponseFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

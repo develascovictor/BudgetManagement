@@ -40,5 +40,18 @@ namespace BudgetManagement.Api.Controllers
 
             return GetResponse(commandResult);
         }
+
+        [HttpGet]
+        [Route("")]
+        public async Task<IHttpActionResult> LoginAsync(CancellationToken cancellationToken)
+        {
+            var url = $"{BaseUrl}/{Request.RequestUri.Query}";
+            Log.Info($"LoginAsync - Url: {url}");
+
+            var request = GetFromQueryString<LoginRequest>();
+            var commandResult = await _userModule.LoginAsync(request, cancellationToken);
+
+            return GetResponse(commandResult);
+        }
     }
 }

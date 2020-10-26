@@ -10,5 +10,7 @@ namespace BudgetManagement.Service.Api.Modules.User.Interfaces
         Task<string> HealthCheckAsync();
 
         Task<UserDto> GetUserByIdAsync(GetUserByIdRequest request, CancellationToken cancellationToken);
+
+        Task<UserDto> LoginAsync(LoginRequest request, CancellationToken cancellationToken);
     }
 }

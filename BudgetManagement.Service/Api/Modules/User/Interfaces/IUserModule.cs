@@ -11,5 +11,7 @@ namespace BudgetManagement.Service.Api.Modules.User.Interfaces
         Task<CommandResult<string>> GetHealthAsync(CancellationToken cancellationToken);
 
         Task<CommandResult<UserDto>> GetUserByIdAsync(GetUserByIdRequest request, CancellationToken cancellationToken);
+
+        Task<CommandResult<UserDto>> LoginAsync(LoginRequest request, CancellationToken cancellationToken);
     }
 }

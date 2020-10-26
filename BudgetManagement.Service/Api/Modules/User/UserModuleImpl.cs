@@ -6,7 +6,6 @@ using BudgetManagement.Service.Api.Modules.User.Mapping;
 using BudgetManagement.Service.Api.Modules.User.Models;
 using BudgetManagement.Service.Api.Modules.User.Views;
 using BudgetManagement.Shared.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +37,14 @@ namespace BudgetManagement.Service.Api.Modules.User
         {
             var caller = CallerExtensions.LogCaller();
             var dto = await GetByIdAsync(() => _userService.GetUserById(request.Id), caller.Method, cancellationToken);
+
+            return dto;
+        }
+
+        public async Task<UserDto> LoginAsync(LoginRequest request, CancellationToken cancellationToken)
+        {
+            var caller = CallerExtensions.LogCaller();
+            var dto = await GetByIdAsync(() => _userService.Login(request.UserName, request.Password), caller.Method, cancellationToken);
 
             return dto;
         }

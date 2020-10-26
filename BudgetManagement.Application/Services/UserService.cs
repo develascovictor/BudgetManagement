@@ -21,5 +21,11 @@ namespace BudgetManagement.Application.Services
             var domain = _unitOfWork.UserRepository.GetById(id);
             return domain;
         }
+
+        public User Login(string userName, string password)
+        {
+            var domain = _unitOfWork.UserRepository.Login(userName, password);
+            return domain;
+        }
     }
 }

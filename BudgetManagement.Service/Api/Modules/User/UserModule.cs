@@ -71,5 +71,49 @@ namespace BudgetManagement.Service.Api.Modules.User
                 return e.GetInternalServerErrorResponse<UserDto>(parameters);
             }
         }
+
+        public async Task<CommandResult<UserDto>> LoginAsync(LoginRequest request, CancellationToken cancellationToken)
+        {
+            var parameters = new { request, cancellationToken };
+
+            try
+            {
+                if (request == null)
+                {
+                    return ExceptionExtensions.GetBadResponse<UserDto>(parameters);
+                }
+            }
+
+            catch (Exception e)
+            {
+                return e.GetBadResponse<UserDto>(parameters);
+            }
+
+            var validator = new LoginRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return validationResult.GetBadResponse<UserDto>(parameters);
+            }
+
+            try
+            {
+                var dto = await _moduleImpl.LoginAsync(request, cancellationToken);
+
+                //TODO: Validate if NotFound is correct
+                if (dto == null)
+                {
+                    return CommandResult<UserDto>.NotFound();
+                }
+
+                return CommandResult<UserDto>.Ok(dto);
+            }
+
+            catch (Exception e)
+            {
+                return e.GetInternalServerErrorResponse<UserDto>(parameters);
+            }
+        }
     }
 }

@@ -1,9 +1,12 @@
-﻿using BudgetManagement.Domain.Repositories;
+﻿using System;
+using BudgetManagement.Domain.Repositories;
 using BudgetManagement.Infrastructure.Repositories.Base;
 using BudgetManagement.Persistence.SqlServer;
 using BudgetManagement.Persistence.SqlServer.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Expressions;
 
 namespace BudgetManagement.Infrastructure.Repositories
 {
@@ -22,5 +25,11 @@ namespace BudgetManagement.Infrastructure.Repositories
         protected override IEnumerable<Domain.Entities.User> ToDomain(IEnumerable<User> entities) => EntityMapper.ToDomain(entities);
 
         protected override User ToPersistence(Domain.Entities.User domain) => EntityMapper.ToPersistence(domain);
+
+        public Domain.Entities.User Login(string userName, string password)
+        {
+            var expression = ((Expression<Func<User, bool>>) (user => user.UserName == userName && user.Password == password && user.Active));
+            return Get(expression);
+        }
     }
 }
