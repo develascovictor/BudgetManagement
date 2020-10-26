@@ -122,6 +122,7 @@ namespace BudgetManagement.Service.Api.Modules.Base
             }
         }
 
+        //TODO: Rename to GetAsync
         public async Task<TSingleDto> GetByIdAsync(Func<TDomain> func, string methodName, CancellationToken cancellationToken)
         {
             var timer = new Stopwatch();

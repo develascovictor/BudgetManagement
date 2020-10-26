@@ -34,10 +34,10 @@ namespace BudgetManagement.Service.Api.Modules.TransactionType
             _transactionTypeService = transactionTypeService;
         }
 
-        public async Task<IReadOnlyCollection<TransactionTypeDto>> GetTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<TransactionTypeDto>> ListTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken)
         {
             var caller = CallerExtensions.LogCaller();
-            var dtos = await GetAsync(() => _transactionTypeService.GetTransactionTypesByBudgetId(request.BudgetId), caller.Method, cancellationToken);
+            var dtos = await GetAsync(() => _transactionTypeService.ListTransactionTypesByBudgetId(request.BudgetId), caller.Method, cancellationToken);
 
             return dtos;
         }

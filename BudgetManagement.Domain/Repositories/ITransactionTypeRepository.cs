@@ -5,7 +5,7 @@ namespace BudgetManagement.Domain.Repositories
 {
     public interface ITransactionTypeRepository
     {
-        IEnumerable<TransactionType> GetByBudgetId(int budgetId);
+        IEnumerable<TransactionType> ListByBudgetId(int budgetId);
         TransactionType GetById(int id);
     }
 }

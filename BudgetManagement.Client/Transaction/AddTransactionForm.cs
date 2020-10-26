@@ -38,7 +38,7 @@ namespace BudgetManagement.Client.Transaction
             {
                 BudgetId = _budgetId
             };
-            var commandResult = await _transactionTypeModule.GetTransactionTypesByBudgetIdAsync(request, default);
+            var commandResult = await _transactionTypeModule.ListTransactionTypesByBudgetIdAsync(request, default);
 
             if (commandResult.StatusCode == HttpStatusCode.OK)
             {

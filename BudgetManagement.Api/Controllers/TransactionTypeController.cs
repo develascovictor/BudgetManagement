@@ -27,13 +27,13 @@ namespace BudgetManagement.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> GetTransactionTypesByBudgetIdAsync(CancellationToken cancellationToken)
+        public async Task<IHttpActionResult> ListTransactionTypesByBudgetIdAsync(CancellationToken cancellationToken)
         {
             var url = $"{BaseUrl}{Request.RequestUri.Query}";
-            Log.Info($"GetTransactionTypesByBudgetIdAsync - Url: {url}");
+            Log.Info($"ListTransactionTypesByBudgetIdAsync - Url: {url}");
 
             var request = GetFromQueryString<GetTransactionTypesByBudgetIdRequest>();
-            var commandResult = await _transactionTypeModule.GetTransactionTypesByBudgetIdAsync(request, cancellationToken);
+            var commandResult = await _transactionTypeModule.ListTransactionTypesByBudgetIdAsync(request, cancellationToken);
 
             return GetResponse(commandResult);
         }

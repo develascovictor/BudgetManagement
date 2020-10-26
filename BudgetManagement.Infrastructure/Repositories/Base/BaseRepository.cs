@@ -133,7 +133,15 @@ namespace BudgetManagement.Infrastructure.Repositories.Base
             return ToDomain(entities);
         }
 
-        protected IEnumerable<TDomain> Get(Expression<Func<TEntity, bool>> expression = null)
+        protected TDomain Get(Expression<Func<TEntity, bool>> expression)
+        {
+            expression = expression ?? (x => true);
+            var entity = Query.FirstOrDefault(expression);
+
+            return ToDomain(entity);
+        }
+
+        protected IEnumerable<TDomain> List(Expression<Func<TEntity, bool>> expression = null)
         {
             expression = expression ?? (x => true);
             var entities = Query.Where(expression).ToList();

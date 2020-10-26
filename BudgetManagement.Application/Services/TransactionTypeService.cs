@@ -18,9 +18,9 @@ namespace BudgetManagement.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IReadOnlyCollection<TransactionType> GetTransactionTypesByBudgetId(int budgetId)
+        public IReadOnlyCollection<TransactionType> ListTransactionTypesByBudgetId(int budgetId)
         {
-            var domains = _unitOfWork.TransactionTypeRepository.GetByBudgetId(budgetId).ToList();
+            var domains = _unitOfWork.TransactionTypeRepository.ListByBudgetId(budgetId).ToList();
             return domains;
         }
     }

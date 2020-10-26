@@ -10,6 +10,6 @@ namespace BudgetManagement.Service.Api.Modules.TransactionType.Interfaces
     {
         Task<string> HealthCheckAsync();
 
-        Task<IReadOnlyCollection<TransactionTypeDto>> GetTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<TransactionTypeDto>> ListTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken);
     }
 }

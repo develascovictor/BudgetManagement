@@ -30,7 +30,7 @@ namespace BudgetManagement.Service.Api.Modules.TransactionType
             return CommandResult<string>.Ok(result);
         }
 
-        public async Task<CommandResult<IReadOnlyCollection<TransactionTypeDto>>> GetTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken)
+        public async Task<CommandResult<IReadOnlyCollection<TransactionTypeDto>>> ListTransactionTypesByBudgetIdAsync(GetTransactionTypesByBudgetIdRequest request, CancellationToken cancellationToken)
         {
             var parameters = new { request, cancellationToken };
 
@@ -57,7 +57,7 @@ namespace BudgetManagement.Service.Api.Modules.TransactionType
 
             try
             {
-                var dtos = await _moduleImpl.GetTransactionTypesByBudgetIdAsync(request, cancellationToken);
+                var dtos = await _moduleImpl.ListTransactionTypesByBudgetIdAsync(request, cancellationToken);
 
                 if (dtos == null)
                 {

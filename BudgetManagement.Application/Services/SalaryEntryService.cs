@@ -68,7 +68,7 @@ namespace BudgetManagement.Application.Services
                 throw new SalaryEntryNotFoundException(id);
             }
 
-            var incomes = _unitOfWork.IncomeRepository.GetBySalaryEntryId(id);
+            var incomes = _unitOfWork.IncomeRepository.ListBySalaryEntryId(id);
 
             if (incomes.Sum(x => x.Value) > salaryEntryUpdateDefinition.Amount / salaryEntryUpdateDefinition.Rate)
             {

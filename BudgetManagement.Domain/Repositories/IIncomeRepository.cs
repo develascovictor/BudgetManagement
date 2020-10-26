@@ -5,7 +5,7 @@ namespace BudgetManagement.Domain.Repositories
 {
     public interface IIncomeRepository
     {
-        IEnumerable<Income> GetBySalaryEntryId(int salaryEntryId);
+        IEnumerable<Income> ListBySalaryEntryId(int salaryEntryId);
         Income GetById(int id);
         Income Create(Income domain);
         Income Update(Income domain);

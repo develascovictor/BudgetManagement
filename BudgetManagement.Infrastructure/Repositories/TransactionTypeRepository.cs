@@ -24,10 +24,10 @@ namespace BudgetManagement.Infrastructure.Repositories
 
         protected override TransactionType ToPersistence(Domain.Entities.TransactionType domain) => EntityMapper.ToPersistence(domain);
 
-        public IEnumerable<Domain.Entities.TransactionType> GetByBudgetId(int budgetId)
+        public IEnumerable<Domain.Entities.TransactionType> ListByBudgetId(int budgetId)
         {
             var expression = ExpressionExtensions.CreateEqualExpression<TransactionType, int>(nameof(TransactionType.BudgetId), budgetId, "tp");
-            return Get(expression);
+            return List(expression);
         }
     }
 }
