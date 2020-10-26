@@ -17,22 +17,24 @@ namespace BudgetManagement.Persistence.SqlServer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.AuditLogs = new HashSet<AuditLog>();
             this.Budgets = new HashSet<Budget>();
             this.SalaryEntries = new HashSet<SalaryEntry>();
-            this.AuditLogs = new HashSet<AuditLog>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
         public bool Active { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AuditLog> AuditLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Budget> Budgets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalaryEntry> SalaryEntries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuditLog> AuditLogs { get; set; }
     }
 }

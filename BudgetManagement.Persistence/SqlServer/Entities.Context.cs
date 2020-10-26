@@ -32,7 +32,7 @@ namespace BudgetManagement.Persistence.SqlServer
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<TransactionType> TransactionTypes { get; set; }
         public virtual DbSet<Transfer> Transfers { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<AuditLog> AuditLogs { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

@@ -12,8 +12,6 @@
         <EntityTypeShape EntityType="BudgetManagementModel.Transaction" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BudgetManagementModel.TransactionType" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BudgetManagementModel.Transfer" Width="1.5" PointX="12" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BudgetManagementModel.User" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <AssociationConnector Association="BudgetManagementModel.FK_Budget_User" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_Transaction_Budget" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_TransactionType_Budget" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_Expense_Transaction" ManuallyRouted="false" />
@@ -22,9 +20,11 @@
         <AssociationConnector Association="BudgetManagementModel.FK_Income_Transaction" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_Transfer_Income" ManuallyRouted="false" />
         <AssociationConnector Association="BudgetManagementModel.FK_Transaction_TransactionType" ManuallyRouted="false" />
-        <AssociationConnector Association="BudgetManagementModel.FK_SalaryEntry_User" />
         <EntityTypeShape EntityType="BudgetManagementModel.AuditLog" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="BudgetManagementModel.User" Width="1.5" PointX="0.75" PointY="6" />
         <AssociationConnector Association="BudgetManagementModel.FK_AuditLog_User" />
+        <AssociationConnector Association="BudgetManagementModel.FK_Budget_User" />
+        <AssociationConnector Association="BudgetManagementModel.FK_SalaryEntry_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

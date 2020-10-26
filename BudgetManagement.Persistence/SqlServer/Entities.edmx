@@ -108,7 +108,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
@@ -315,9 +317,9 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Budget_User" FromRole="Budget" ToRole="User" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_Budget" FromRole="Budget" ToRole="Transaction" />
           <NavigationProperty Name="TransactionTypes" Relationship="Self.FK_TransactionType_Budget" FromRole="Budget" ToRole="TransactionType" />
+          <NavigationProperty Name="User" Relationship="BudgetManagementModel.FK_Budget_User" FromRole="Budget" ToRole="User" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
@@ -364,7 +366,7 @@
             <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
             <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
             <NavigationProperty Name="Incomes" Relationship="Self.FK_Income_SalaryEntry" FromRole="SalaryEntry" ToRole="Income" />
-            <NavigationProperty Name="User" Relationship="BudgetManagementModel.FK_SalaryEntry_User" FromRole="SalaryEntry" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="BudgetManagementModel.FK_SalaryEntry_User" FromRole="SalaryEntry" ToRole="User" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -407,31 +409,6 @@
           <NavigationProperty Name="Expense" Relationship="Self.FK_Transfer_Expense" FromRole="Transfer" ToRole="Expense" />
           <NavigationProperty Name="Income" Relationship="Self.FK_Transfer_Income" FromRole="Transfer" ToRole="Income" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Budgets" Relationship="Self.FK_Budget_User" FromRole="User" ToRole="Budget" />
-          <NavigationProperty Name="SalaryEntries" Relationship="BudgetManagementModel.FK_SalaryEntry_User" FromRole="User" ToRole="SalaryEntry" />
-          <NavigationProperty Name="AuditLogs" Relationship="BudgetManagementModel.FK_AuditLog_User" FromRole="User" ToRole="AuditLog" />
-        </EntityType>
-        <Association Name="FK_Budget_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Budget">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Transaction_Budget">
           <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
           <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -536,11 +513,6 @@
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
           <EntitySet Name="TransactionTypes" EntityType="Self.TransactionType" />
           <EntitySet Name="Transfers" EntityType="Self.Transfer" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Budget_User" Association="Self.FK_Budget_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Budget" EntitySet="Budgets" />
-          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Budget" Association="Self.FK_Transaction_Budget">
             <End Role="Budget" EntitySet="Budgets" />
             <End Role="Transaction" EntitySet="Transactions" />
@@ -573,28 +545,21 @@
             <End Role="TransactionType" EntitySet="TransactionTypes" />
             <End Role="Transaction" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_SalaryEntry_User" Association="BudgetManagementModel.FK_SalaryEntry_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="SalaryEntry" EntitySet="SalaryEntries" />
-          </AssociationSet>
           <EntitySet Name="AuditLogs" EntityType="BudgetManagementModel.AuditLog" />
+          <EntitySet Name="Users" EntityType="BudgetManagementModel.User" />
           <AssociationSet Name="FK_AuditLog_User" Association="BudgetManagementModel.FK_AuditLog_User">
             <End Role="User" EntitySet="Users" />
             <End Role="AuditLog" EntitySet="AuditLogs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Budget_User" Association="BudgetManagementModel.FK_Budget_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Budget" EntitySet="Budgets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalaryEntry_User" Association="BudgetManagementModel.FK_SalaryEntry_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SalaryEntry" EntitySet="SalaryEntries" />
+          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_SalaryEntry_User">
-          <End Type="BudgetManagementModel.User" Role="User" Multiplicity="1" />
-          <End Type="BudgetManagementModel.SalaryEntry" Role="SalaryEntry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SalaryEntry">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AuditLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -609,6 +574,21 @@
           <Property Name="AuditDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="BudgetManagementModel.FK_AuditLog_User" FromRole="AuditLog" ToRole="User" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AuditLogs" Relationship="BudgetManagementModel.FK_AuditLog_User" FromRole="User" ToRole="AuditLog" />
+          <NavigationProperty Name="Budgets" Relationship="BudgetManagementModel.FK_Budget_User" FromRole="User" ToRole="Budget" />
+          <NavigationProperty Name="SalaryEntries" Relationship="BudgetManagementModel.FK_SalaryEntry_User" FromRole="User" ToRole="SalaryEntry" />
+        </EntityType>
         <Association Name="FK_AuditLog_User">
           <End Type="BudgetManagementModel.User" Role="User" Multiplicity="1" />
           <End Type="BudgetManagementModel.AuditLog" Role="AuditLog" Multiplicity="*" />
@@ -617,6 +597,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AuditLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Budget_User">
+          <End Type="BudgetManagementModel.User" Role="User" Multiplicity="1" />
+          <End Type="BudgetManagementModel.Budget" Role="Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalaryEntry_User">
+          <End Type="BudgetManagementModel.User" Role="User" Multiplicity="1" />
+          <End Type="BudgetManagementModel.SalaryEntry" Role="SalaryEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalaryEntry">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -719,17 +723,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="BudgetManagementModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AuditLogs">
             <EntityTypeMapping TypeName="BudgetManagementModel.AuditLog">
               <MappingFragment StoreEntitySet="AuditLog">
@@ -740,6 +733,19 @@
                 <ScalarProperty Name="ChangeType" ColumnName="ChangeType" />
                 <ScalarProperty Name="PrimaryKeyJson" ColumnName="PrimaryKeyJson" />
                 <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BudgetManagementModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

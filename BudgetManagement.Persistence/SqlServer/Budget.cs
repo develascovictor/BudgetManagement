@@ -29,10 +29,10 @@ namespace BudgetManagement.Persistence.SqlServer
         public System.DateTime CreatedOn { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionType> TransactionTypes { get; set; }
+        public virtual User User { get; set; }
     }
 }
